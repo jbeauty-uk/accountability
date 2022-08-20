@@ -7,3 +7,13 @@ spring:
         - http://localhost:3000
       allowed-methods:
         - GET
+      allowed-headers:
+        - Authorization
+server:
+  error:
+    include-message: always
+
+logging:
+  level:
+    org:
+      springframework: trace

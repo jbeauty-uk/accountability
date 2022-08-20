@@ -9,9 +9,14 @@ export default NextAuth({
     }),
   ],
   callbacks: {
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   console.log({ user, account, profile, email, credentials });
+    //   return true;
+    // },
     async jwt({ token, account }) {
+      console.log({ token, account });
       if (account) {
-        token.accessToken = account.access_token;
+        token.accessToken = account.id_token;
       }
       return token;
     },

@@ -9,6 +9,7 @@ record CorsConfigurationProperties(
     String path,
     Long maxAge,
     List<String> allowedOrigins,
-    List<String> allowedMethods
+    List<String> allowedMethods,
+    List<String> allowedHeaders
 ) {
 }

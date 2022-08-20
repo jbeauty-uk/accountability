@@ -9,11 +9,13 @@ export default function DashboardPage() {
   });
 
   const sendRequest = async () => {
-    var response = await axios.get("http://localhost:8080/data");
+    var response = await axios.get("http://localhost:8080/data", {
+      headers: {
+        Authorization: `Bearer ${data.accessToken}`,
+      },
+    });
     console.log(response);
   };
-
-  const [pageStatus, setPageStatus] = useState("Loading");
 
   if (status != "authenticated") {
     return <p>You must sign in to see this page</p>;
@@ -25,7 +27,7 @@ export default function DashboardPage() {
 
   return (
     <>
-      <p>{pageStatus}</p>
+      <p>Authenticated</p>
       <button onClick={sendRequest}>Send Request</button>
     </>
   );
