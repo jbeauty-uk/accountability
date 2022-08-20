@@ -10,3 +10,4 @@ spring:
         - POST
       allowed-headers:
         - Authorization
+        - Content-Type

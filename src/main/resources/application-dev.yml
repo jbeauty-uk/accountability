@@ -7,3 +7,8 @@ spring:
     url: r2dbc:postgresql://localhost:5432/accountability
     username: accountability
     password: accountability
+
+  flyway:
+    url: jdbc:postgresql://localhost:5432/accountability
+    user: accountability
+    password: accountability

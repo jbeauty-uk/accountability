@@ -13,12 +13,19 @@ repositories {
 }
 
 dependencies {
+  // Spring
   implementation 'org.springframework.boot:spring-boot-starter-webflux'
   implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
   implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
   implementation 'org.springframework.boot:spring-boot-configuration-processor'
 
+  // Postgres
   runtimeOnly 'org.postgresql:r2dbc-postgresql'
+
+  // Flyway
+  compileOnly 'org.flywaydb:flyway-core:8.5.13'
+  runtimeOnly 'org.springframework.data:spring-data-jdbc'
+  runtimeOnly 'org.postgresql:postgresql'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
