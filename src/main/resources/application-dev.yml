@@ -3,3 +3,7 @@ spring:
     cors:
       allowed-origins:
         - http://localhost:3000
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/accountability
+    username: accountability
+    password: accountability

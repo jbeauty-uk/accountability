@@ -7,5 +7,6 @@ spring:
         - https://accountability.jbeauty.uk
       allowed-methods:
         - GET
+        - POST
       allowed-headers:
         - Authorization
