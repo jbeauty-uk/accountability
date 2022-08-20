@@ -14,13 +14,17 @@ repositories {
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-webflux'
-  implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+  implementation 'org.springframework.boot:spring-boot-starter-security'
+  implementation 'org.springframework.boot:spring-boot-configuration-processor'
+//  implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
   implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+  implementation 'org.springframework.security:spring-security-oauth2-jose' // support for decoding and verifying JWTs
 
-  runtimeOnly 'org.postgresql:r2dbc-postgresql'
+  implementation 'com.google.api-client:google-api-client:2.0.0'
+
+  runtimeOnly 'org.postgresql:postgresql:42.3.6'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  testImplementation 'io.projectreactor:reactor-test'
 }
 
 tasks.named('test') {

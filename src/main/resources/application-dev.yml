@@ -1,5 +1,9 @@
 spring:
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/accountability
-    username: accountability
-    password: accountability
+  security:
+    cors:
+      path: /**
+      max-age: 3600
+      allowed-origins:
+        - http://localhost:3000
+      allowed-methods:
+        - GET
