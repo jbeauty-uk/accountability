@@ -9,11 +9,3 @@ spring:
         - GET
       allowed-headers:
         - Authorization
-server:
-  error:
-    include-message: always
-
-logging:
-  level:
-    org:
-      springframework: trace
