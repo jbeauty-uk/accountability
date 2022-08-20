@@ -1,11 +1,5 @@
 spring:
   security:
     cors:
-      path: /**
-      max-age: 3600
       allowed-origins:
         - http://localhost:3000
-      allowed-methods:
-        - GET
-      allowed-headers:
-        - Authorization
