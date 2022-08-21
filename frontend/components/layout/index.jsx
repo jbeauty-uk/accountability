@@ -1,16 +1,23 @@
 import axios from "axios";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import Navigation from "../navigation";
 
 export default function Layout({ children }) {
-  const { status, data } = useSession({
+  const { status, data: session } = useSession({
     required: true,
   });
 
-  if (status && data && data.accessToken) {
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      signIn(); // Force sign in to hopefully resolve error
+    }
+  }, [session]);
+
+  if (status && session && session.accessToken) {
     axios.defaults.headers.common[
       "Authorization"
-    ] = `Bearer ${data.accessToken}`;
+    ] = `Bearer ${session.accessToken}`;
   }
 
   return (
