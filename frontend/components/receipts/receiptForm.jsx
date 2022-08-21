@@ -1,17 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
+import { useSWRConfig } from "swr";
 import { isoDate } from "../../lib/date";
 import { PrimaryButton } from "../buttons";
 import { DateInput, RadioInput, TextareaInput, TextInput } from "../formInputs";
-import { useSWRConfig } from "swr";
 
-export default function ReceiptForm({ close }) {
+export default function ReceiptForm({ close, receipt }) {
   const { mutate } = useSWRConfig();
 
-  const [type, setType] = useState("INCOME");
-  const [date, setDate] = useState(isoDate());
-  const [details, setDetails] = useState("");
-  const [amount, setAmount] = useState("");
+  const [type, setType] = useState(receipt.type || "INCOME");
+  const [date, setDate] = useState(receipt.date || isoDate());
+  const [details, setDetails] = useState(receipt.details || "");
+  const [amount, setAmount] = useState(receipt.amount / 100 || "");
 
   const radioOptions = [
     {
@@ -46,7 +46,9 @@ export default function ReceiptForm({ close }) {
       <div className="bg-neutral-50 border-2 border-neutral-400 rounded-lg p-4 w-full">
         <div className="flex flex-col pb-2">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl">Save New Receipt</h2>
+            <h2 className="text-xl">
+              {receipt.id ? "Update receipt" : "Create receipt"}
+            </h2>
             <button onClick={close}>Close</button>
           </div>
         </div>
@@ -68,7 +70,9 @@ export default function ReceiptForm({ close }) {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
-          <PrimaryButton text="Save Receipt" />
+          <PrimaryButton
+            text={receipt.id ? "Update receipt" : "Create receipt"}
+          />
         </form>
       </div>
     </div>
