@@ -1,10 +1,10 @@
 import axios from "axios";
-import {signIn, useSession} from "next-auth/react";
-import {useState} from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useState } from "react";
 import TreatmentOptions from "../../components/treatment/treatmentOptions";
-import {isoDate} from "../../lib/date";
+import { isoDate } from "../../lib/date";
 
-export default function NewTransactionPage() {
+export default function NewReceiptPage() {
   const { status } = useSession({
     required: true,
     onUnauthenticated: signIn,

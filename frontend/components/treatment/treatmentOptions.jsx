@@ -1,5 +1,5 @@
 import React from "react";
-import {useTreatmentCategories} from "../../lib/treatments";
+import { useTreatmentCategories } from "../../lib/treatments";
 
 export default function TreatmentOptions({ selected, setSelected }) {
   const { treatmentCategories } = useTreatmentCategories();
@@ -21,6 +21,7 @@ export default function TreatmentOptions({ selected, setSelected }) {
               name={category}
               value={id}
               onClick={() => toggleSelection(id)}
+              onChange={(e) => {}}
               checked={selected.includes(id)}
             ></input>
             <label htmlFor={id}>{category}</label>
