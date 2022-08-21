@@ -26,7 +26,7 @@ export default function Layout({ children }) {
         <header className="container flex flex-col space-y-2 border-b border-black">
           <Navigation />
         </header>
-        <main className="container">{children}</main>
+        <main className="container flex-grow">{children}</main>
       </div>
       <footer className="container border-t border-black">
         <p>Accountability</p>
