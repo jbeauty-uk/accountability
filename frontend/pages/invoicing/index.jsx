@@ -1,4 +1,4 @@
-import {signIn, useSession} from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import InvoicesSummary from "../../components/invoice/invoicesSummary";
 
 export default function InvoicingPage() {
