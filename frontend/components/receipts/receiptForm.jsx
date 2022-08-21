@@ -1,9 +1,13 @@
+import axios from "axios";
 import { useState } from "react";
 import { isoDate } from "../../lib/date";
 import { PrimaryButton } from "../buttons";
 import { DateInput, RadioInput, TextareaInput, TextInput } from "../formInputs";
+import { useSWRConfig } from "swr";
 
 export default function ReceiptForm({ close }) {
+  const { mutate } = useSWRConfig();
+
   const [type, setType] = useState("INCOME");
   const [date, setDate] = useState(isoDate());
   const [details, setDetails] = useState("");
@@ -26,9 +30,15 @@ export default function ReceiptForm({ close }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setDetails("");
-    setAmount("");
-    console.log({ type, date, details, amount });
+    await axios.post(process.env.NEXT_PUBLIC_RECEIPTS_URL, {
+      type,
+      date,
+      details,
+      amount: amount * 100,
+    });
+    mutate(process.env.NEXT_PUBLIC_RECEIPTS_URL);
+    // setDetails("");
+    // setAmount("");
   };
 
   return (

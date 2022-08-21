@@ -5,12 +5,10 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_DB: accountability
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./create_db_user.sh:/docker-entrypoint-initdb.d/create-db-user.sh
 
 volumes:
   postgres_data:

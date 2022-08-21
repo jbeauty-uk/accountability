@@ -1,24 +1,27 @@
 package uk.jbeauty.accountability.receipt;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
-@RequestMapping("receipt")
+@RequestMapping("receipts")
+@AllArgsConstructor
 class ReceiptController {
 
-  private final List<IncomeReceipt> incomeReceipts = new ArrayList<>();
+  private final ReceiptService receiptService;
 
-  @PostMapping("income")
-  Mono<Void> submitIncomeReceipt(@RequestBody IncomeReceipt incomeReceipt) {
-    incomeReceipts.add(incomeReceipt);
-    return Mono.empty();
+  @GetMapping
+  Flux<Receipt> receipts(BearerTokenAuthentication authentication) {
+    return receiptService.findAll(authentication.getName());
+  }
+
+  @PostMapping
+  Mono<Receipt> createReceipt(BearerTokenAuthentication authentication,
+                              @RequestBody Receipt receipt) {
+    return receiptService.createReceipt(authentication.getName(), receipt);
   }
 
 }
