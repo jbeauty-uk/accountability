@@ -4,7 +4,10 @@ import { useReceipts } from "../../lib/receipts";
 
 export default function ReceiptInfoPage() {
   const router = useRouter();
-  const { receipts } = useReceipts();
+  const { receipts, isLoading, isError } = useReceipts();
+
+  if (isLoading) return <p>Loading</p>;
+  if (isError) return <p>Error</p>;
 
   return (
     <ReceiptsPage

@@ -37,8 +37,7 @@ export default function ReceiptForm({ close, receipt }) {
       amount: amount * 100,
     });
     mutate(process.env.NEXT_PUBLIC_RECEIPTS_URL);
-    // setDetails("");
-    // setAmount("");
+    close();
   };
 
   return (
@@ -53,7 +52,11 @@ export default function ReceiptForm({ close, receipt }) {
           </div>
         </div>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-          <RadioInput label="Receipt type" options={radioOptions} />
+          <RadioInput
+            label="Receipt type"
+            options={radioOptions}
+            defaultOption={type == "INCOME" ? 0 : 1}
+          />
           <DateInput
             label="Receipt Date"
             value={date}
