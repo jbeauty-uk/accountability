@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
-import { PrimaryButton } from "../buttons";
+import {useRouter} from "next/router";
+import {PrimaryButton} from "../buttons";
 import PageHeading from "../layout/pageHeading";
 import LatestReceipts from "./latestReceipts";
 import ReceiptForm from "./receiptForm";
@@ -10,7 +10,7 @@ export default function ReceiptsPage({ showForm = false, receipt = {} }) {
   const closeForm = () => router.push("/receipts");
 
   return (
-    <>
+    <div className="flex flex-col space-y-4">
       <PageHeading
         heading="Receipts"
         subheading="The place to track your income and expenses"
@@ -22,6 +22,6 @@ export default function ReceiptsPage({ showForm = false, receipt = {} }) {
 
       {showForm && <ReceiptForm close={closeForm} receipt={receipt} />}
       <LatestReceipts />
-    </>
+    </div>
   );
 }

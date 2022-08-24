@@ -16,8 +16,9 @@ class ReceiptMapper implements Function<Row, Receipt> {
     Optional.ofNullable(row.get("id", Long.class)).map(builder::setId);
     Optional.ofNullable(row.get("created_at", Instant.class)).map(builder::setCreatedAt);
     Optional.ofNullable(row.get("deleted_at", Instant.class)).map(builder::setDeletedAt);
-    Optional.ofNullable(row.get("created_by", String.class)).map(builder::setCreatedBy);
+
     Optional.ofNullable(row.get("receipt_id", Long.class)).map(builder::setReceiptId);
+    Optional.ofNullable(row.get("created_by", String.class)).map(builder::setCreatedBy);
     Optional.ofNullable(row.get("type", String.class)).map(builder::setType);
     Optional.ofNullable(row.get("date", LocalDate.class)).map(builder::setDate);
     Optional.ofNullable(row.get("details", String.class)).map(builder::setDetails);

@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS receipts
 (
-    id         BIGSERIAL PRIMARY KEY,
-    created_by VARCHAR NOT NULL
+    id BIGSERIAL PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS receipt_details
@@ -10,6 +9,7 @@ CREATE TABLE IF NOT EXISTS receipt_details
     created_at TIMESTAMP NOT NULL DEFAULT now(),
     deleted_at TIMESTAMP,
     receipt_id BIGINT REFERENCES receipts (id),
+    created_by VARCHAR   NOT NULL,
     type       VARCHAR   NOT NULL,
     date       DATE      NOT NULL,
     details    VARCHAR,

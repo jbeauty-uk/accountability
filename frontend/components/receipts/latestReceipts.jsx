@@ -1,4 +1,4 @@
-import { useReceipts } from "../../lib/receipts";
+import {useReceipts} from "../../lib/receipts";
 import ReceiptPreview from "./receiptPreview";
 
 const receiptSort = (a, b) => {
@@ -12,7 +12,7 @@ export default function LatestReceipts() {
 
   return (
     <>
-      <h2 className="text-xl py-4">Latest Receipts</h2>
+      <h2 className="text-xl">Latest Receipts</h2>
       <div className="flex flex-col space-y-3">
         {receipts &&
           receipts

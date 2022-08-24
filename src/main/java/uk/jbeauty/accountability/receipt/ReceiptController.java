@@ -24,4 +24,17 @@ class ReceiptController {
     return receiptService.createReceipt(authentication.getName(), receipt);
   }
 
+  @PutMapping("{receipt-id}")
+  Mono<Receipt> updateReceipt(BearerTokenAuthentication authentication,
+                              @PathVariable("receipt-id") Long receiptId,
+                              @RequestBody Receipt receipt) {
+    return receiptService.updateReceipt(authentication.getName(), receiptId, receipt);
+  }
+
+  @DeleteMapping("{receipt-id}")
+  Mono<Receipt> deleteReceipt(BearerTokenAuthentication authentication,
+                              @PathVariable("receipt-id") Long receiptId) {
+    return receiptService.deleteReceipt(authentication.getName(), receiptId);
+  }
+
 }

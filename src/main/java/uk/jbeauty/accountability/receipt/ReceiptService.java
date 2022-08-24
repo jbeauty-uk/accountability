@@ -19,4 +19,12 @@ public class ReceiptService {
     return repository.createReceipt(username, receipt);
   }
 
+  public Mono<Receipt> updateReceipt(String username, Long receiptId, Receipt receipt) {
+    return repository.updateReceipt(username, receiptId, receipt);
+  }
+
+  public Mono<Receipt> deleteReceipt(String username, Long receiptId) {
+    return repository.deleteReceipt(username, receiptId);
+  }
+
 }

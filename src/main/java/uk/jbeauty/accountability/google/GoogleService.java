@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 class GoogleService {
 
-  private static final String USERINFO_ENDPOINT = "https://www.googleapis.com/oauth2/v1/userinfo";
+  private static final String USERINFO_ENDPOINT = "https://www.googleapis.com/oauth2/v3/userinfo";
 
   private final ApiService apiService;
 
@@ -25,6 +25,8 @@ class GoogleService {
     var uri = UriComponentsBuilder.fromUriString(USERINFO_ENDPOINT)
         .queryParams(new MultiValueMapAdapter<>(variables))
         .toUriString();
+
+    System.out.println(uri);
 
     return apiService.get(uri, UserInfo.class);
   }

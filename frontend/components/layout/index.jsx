@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import {useSession} from "next-auth/react";
+import {useEffect} from "react";
 import Navigation from "../navigation";
 
 export default function Layout({ children }) {
@@ -10,6 +10,8 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     if (session?.error === "RefreshAccessTokenError") {
+      console.log(session.error);
+
       signIn(); // Force sign in to hopefully resolve error
     }
   }, [session]);

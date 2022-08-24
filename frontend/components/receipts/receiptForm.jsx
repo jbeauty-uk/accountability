@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
-import { useSWRConfig } from "swr";
-import { isoDate } from "../../lib/date";
-import { PrimaryButton } from "../buttons";
-import { DateInput, RadioInput, TextareaInput, TextInput } from "../formInputs";
+import {useState} from "react";
+import {useSWRConfig} from "swr";
+import {isoDate} from "../../lib/date";
+import {PrimaryButton} from "../buttons";
+import {DateInput, RadioInput, TextareaInput, TextInput} from "../formInputs";
 
 export default function ReceiptForm({ close, receipt }) {
   const { mutate } = useSWRConfig();
@@ -28,7 +28,7 @@ export default function ReceiptForm({ close, receipt }) {
     },
   ];
 
-  const handleSubmit = async (e) => {
+  const createReceipt = async (e) => {
     e.preventDefault();
     await axios.post(process.env.NEXT_PUBLIC_RECEIPTS_URL, {
       type,
@@ -36,6 +36,25 @@ export default function ReceiptForm({ close, receipt }) {
       details,
       amount: amount * 100,
     });
+    mutate(process.env.NEXT_PUBLIC_RECEIPTS_URL);
+    close();
+  };
+
+  const updateReceipt = async (e) => {
+    e.preventDefault();
+    await axios.put(`${process.env.NEXT_PUBLIC_RECEIPTS_URL}/${receipt.id}`, {
+      type,
+      date,
+      details,
+      amount: amount * 100,
+    });
+    mutate(process.env.NEXT_PUBLIC_RECEIPTS_URL);
+    close();
+  };
+
+  const deleteReceipt = async (e) => {
+    e.preventDefault();
+    await axios.delete(`${process.env.NEXT_PUBLIC_RECEIPTS_URL}/${receipt.id}`);
     mutate(process.env.NEXT_PUBLIC_RECEIPTS_URL);
     close();
   };
@@ -51,7 +70,10 @@ export default function ReceiptForm({ close, receipt }) {
             <button onClick={close}>Close</button>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+        <form
+          onSubmit={receipt.id ? updateReceipt : createReceipt}
+          className="grid grid-cols-1 gap-4"
+        >
           <RadioInput
             label="Receipt type"
             options={radioOptions}
@@ -76,6 +98,9 @@ export default function ReceiptForm({ close, receipt }) {
           <PrimaryButton
             text={receipt.id ? "Update receipt" : "Create receipt"}
           />
+          {receipt.id && (
+            <button onClick={deleteReceipt}>Delete receipt</button>
+          )}
         </form>
       </div>
     </div>

@@ -10,6 +10,4 @@ public interface PersistableEntity {
 
   Instant getDeletedAt();
 
-  String getCreatedBy();
-
 }
