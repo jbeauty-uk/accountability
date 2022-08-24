@@ -4,11 +4,11 @@ spring:
       allowed-origins:
         - http://localhost:3000
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/accountability
-    username: accountability
-    password: accountability
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
 
   flyway:
-    url: jdbc:postgresql://localhost:5432/accountability
-    user: accountability
-    password: accountability
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: postgres
+    password: postgres

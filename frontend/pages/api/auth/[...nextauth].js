@@ -7,6 +7,7 @@ import GoogleProvider from "next-auth/providers/google";
  * returns the old token and an error property
  */
 async function refreshAccessToken(token) {
+  console.log("Attempting to refresh access token");
   try {
     const url =
       "https://oauth2.googleapis.com/token?" +
@@ -37,8 +38,6 @@ async function refreshAccessToken(token) {
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
-    console.log(error);
-
     return {
       ...token,
       error: "RefreshAccessTokenError",

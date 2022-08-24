@@ -7,7 +7,6 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-@EnableR2dbcRepositories(basePackages = {"uk.jbeauty.accountability"})
 public class AccountabilityApplication {
 
   public static void main(String[] args) {
