@@ -1,0 +1,16 @@
+spring:
+  security:
+    cors:
+      allowed-origins:
+        - https://accountability.jbeauty.uk
+  r2dbc:
+    url: r2dbc:postgresql://${POSTGRES_HOST}/postgres
+    username: postgres
+    password: ${POSTGRES_USERNAME}
+  flyway:
+    url: jdbc:postgresql://${POSTGRES_HOST}/postgres
+    user: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+server:
+  servlet:
+    context-path: accountability

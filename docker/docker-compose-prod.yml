@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:14.5-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: "${POSTGRES_USERNAME}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - accountability
+
+  api:
+    build: .
+    restart: always
+    environment:
+      POSTGRES_HOST: postgres:5432
+      POSTGRES_USER: "${POSTGRES_USERNAME}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    networks:
+      - accountability
+      - public
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.accountability.entrypoints=https
+      - traefik.http.routers.accountability.rule=Host(`api.jbeauty.uk`)
+      - traefik.http.services.accountability.loadbalancer.server.port=8080
+      - traefik.http.routers.accountability.tls.certresolver=lets-encrypt
+      - traefik.http.middlewares.accountability.headers.accesscontrolalloworiginlist=https://accountability.jbeauty.uk
+      - traefik.http.middlewares.accountability.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE
+
+volumes:
+  postgres_data:
+
+networks:
+  accountability:
+  public:
+    external: true

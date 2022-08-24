@@ -3,8 +3,6 @@ spring:
     cors:
       path: /**
       max-age: 3600
-      allowed-origins:
-        - https://accountability.jbeauty.uk
       allowed-methods:
         - GET
         - POST
