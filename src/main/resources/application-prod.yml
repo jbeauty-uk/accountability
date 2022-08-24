@@ -11,6 +11,5 @@ spring:
     url: jdbc:postgresql://${POSTGRES_HOST}/postgres
     user: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
-server:
-  servlet:
-    context-path: accountability
+  webflux:
+    base-path: accountability
