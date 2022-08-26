@@ -1,17 +1,20 @@
-import {useState} from "react";
-import {useReceipts} from "../../lib/receipts";
-import {calculateTotalExpensesForYear, calculateTotalIncomeForYear, getAvailableYears,} from "../../lib/summary";
-import {Card} from "../cards";
+import { useState } from "react";
+import { useReceipts } from "../../lib/receipts";
+import {
+  calculateTotalExpensesForYear,
+  calculateTotalIncomeForYear,
+  getAvailableYears,
+} from "../../lib/summary";
+import { Card } from "../cards";
 import Dropdown from "../formInputs";
 import NoDataAvailable from "./noDataAvailable";
 
 export default function Summary() {
   const { receipts, isLoading, isError } = useReceipts();
+  const [year, setYear] = useState(getAvailableYears(receipts)[0]);
 
   if (isLoading) return <p>Loading</p>;
   if (isError) return <p>Error</p>;
-
-  const [year, setYear] = useState(getAvailableYears(receipts)[0]);
 
   const availableYears = getAvailableYears(receipts);
   const onChange = (e) => setYear(e.target.value);
