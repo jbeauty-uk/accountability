@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 
 const labelClassName = "text-gray-700";
 const inputClassName =
@@ -78,5 +78,29 @@ export function RadioInput({ label, options, defaultOption = 0 }) {
         ))}
       </div>
     </fieldset>
+  );
+}
+
+export default function Dropdown({
+  label,
+  options,
+  defaultOption = 0,
+  onChange,
+}) {
+  return (
+    <label className="block">
+      <span className={labelClassName}>{label}</span>
+      <select
+        className={inputClassName}
+        defaultValue={options[defaultOption].value}
+        onChange={onChange}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }

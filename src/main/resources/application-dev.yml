@@ -15,4 +15,4 @@ spring:
     password: postgres
 
 google:
-  client-id: 80897659694-ocbk9cs9mefqoplmrqktnav8emi2eoso.apps.googleusercontent.com
+  client-id: ${GOOGLE_CLIENT_ID}
