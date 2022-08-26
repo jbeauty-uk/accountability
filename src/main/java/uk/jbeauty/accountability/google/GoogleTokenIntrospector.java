@@ -20,8 +20,10 @@ class GoogleTokenIntrospector implements ReactiveOpaqueTokenIntrospector {
 
   @Override
   public Mono<OAuth2AuthenticatedPrincipal> introspect(String token) {
-    googleService.getTokenInfo(token).subscribe();
-    return googleService.getUserInfo(token).map(this::fromUserInfo);
+    return googleService.getTokenInfo(token)
+        .onErrorResume(Mono::error)
+        .flatMap(i -> googleService.getUserInfo(token))
+        .map(this::fromUserInfo);
   }
 
   private OAuth2AuthenticatedPrincipal fromUserInfo(UserInfo userInfo) {
