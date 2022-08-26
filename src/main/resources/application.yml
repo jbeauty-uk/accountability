@@ -22,7 +22,7 @@ spring:
     password: ${spring.flyway.password}
 
 google:
-  client-id: ${google.client-id}
+  client-id: ${GOOGLE_CLIENT_ID}
   endpoints:
     user-info: https://www.googleapis.com/oauth2/v3/userinfo
     token-info: https://www.googleapis.com/oauth2/v3/tokeninfo

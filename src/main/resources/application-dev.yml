@@ -13,6 +13,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     user: postgres
     password: postgres
-
-google:
-  client-id: ${GOOGLE_CLIENT_ID}
