@@ -2,6 +2,8 @@ package uk.jbeauty.accountability.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -18,7 +20,11 @@ public class ApiService {
         .get()
         .uri(uri)
         .retrieve()
-        .bodyToMono(responseType);
+        .bodyToMono(responseType)
+        .onErrorResume(
+            WebClientResponseException.class,
+            error -> Mono.error(new ResponseStatusException(error.getStatusCode()))
+        );
   }
 
 }

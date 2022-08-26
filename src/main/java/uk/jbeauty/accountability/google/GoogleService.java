@@ -1,34 +1,52 @@
 package uk.jbeauty.accountability.google;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMapAdapter;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 import uk.jbeauty.accountability.api.ApiService;
+import uk.jbeauty.accountability.exceptions.InvalidAccessTokenException;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
+@AllArgsConstructor
 class GoogleService {
 
-  private static final String USERINFO_ENDPOINT = "https://www.googleapis.com/oauth2/v3/userinfo";
-
+  private final GoogleConfiguration googleConfiguration;
   private final ApiService apiService;
 
-  public GoogleService(ApiService apiService) {
-    this.apiService = apiService;
+  Mono<UserInfo> getUserInfo(String accessToken) {
+    return getWithParams(
+        googleConfiguration.endpoints().userInfo(),
+        Map.of("access_token", List.of(accessToken)),
+        UserInfo.class
+    );
   }
 
-  public Mono<UserInfo> getUserInfo(String accessToken) {
-    Map<String, List<String>> variables = Map.of("access_token", List.of(accessToken));
-    var uri = UriComponentsBuilder.fromUriString(USERINFO_ENDPOINT)
-        .queryParams(new MultiValueMapAdapter<>(variables))
+  Mono<TokenInfo> getTokenInfo(String accessToken) {
+    return getWithParams(
+        googleConfiguration.endpoints().tokenInfo(),
+        Map.of("access_token", List.of(accessToken)),
+        TokenInfo.class
+    ).flatMap(tokenInfo -> isTokenAudienceValid(tokenInfo.aud())
+        ? Mono.just(tokenInfo)
+        : Mono.error(new InvalidAccessTokenException("Invalid subject in access token"))
+    );
+  }
+
+  private boolean isTokenAudienceValid(String audience) {
+    return audience.equals(googleConfiguration.clientId());
+  }
+
+  private <T> Mono<T> getWithParams(String endpoint, Map<String, List<String>> params, Class<T> responseType) {
+    var uri = UriComponentsBuilder.fromUriString(endpoint)
+        .queryParams(new MultiValueMapAdapter<>(params))
         .toUriString();
 
-    System.out.println(uri);
-
-    return apiService.get(uri, UserInfo.class);
+    return apiService.get(uri, responseType);
   }
 
 }
