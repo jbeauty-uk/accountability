@@ -20,6 +20,7 @@ services:
       POSTGRES_HOST: postgres:5432/postgres
       POSTGRES_USERNAME: "${POSTGRES_USERNAME}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
     networks:
       - accountability
       - public
