@@ -1,6 +1,8 @@
 package uk.jbeauty.accountability.google;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMapAdapter;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -14,6 +16,8 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 class GoogleService {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(GoogleService.class);
 
   private final GoogleConfiguration googleConfiguration;
   private final ApiService apiService;
@@ -38,7 +42,11 @@ class GoogleService {
   }
 
   private boolean isTokenAudienceValid(String audience) {
-    return audience.equals(googleConfiguration.clientId());
+    var isValid = audience.equals(googleConfiguration.clientId());
+    if (!isValid) {
+      LOGGER.info("Received access token with invalid audience");
+    }
+    return isValid;
   }
 
   private <T> Mono<T> getWithParams(String endpoint, Map<String, List<String>> params, Class<T> responseType) {

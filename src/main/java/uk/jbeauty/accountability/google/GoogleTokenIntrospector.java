@@ -1,5 +1,7 @@
 package uk.jbeauty.accountability.google;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.core.DefaultOAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.server.resource.introspection.ReactiveOpaqueTokenIntrospector;
@@ -12,6 +14,8 @@ import java.util.Map;
 @Component
 class GoogleTokenIntrospector implements ReactiveOpaqueTokenIntrospector {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(GoogleTokenIntrospector.class);
+
   private final GoogleService googleService;
 
   public GoogleTokenIntrospector(GoogleService googleService) {
@@ -21,7 +25,10 @@ class GoogleTokenIntrospector implements ReactiveOpaqueTokenIntrospector {
   @Override
   public Mono<OAuth2AuthenticatedPrincipal> introspect(String token) {
     return googleService.getTokenInfo(token)
-        .onErrorResume(Mono::error)
+        .onErrorResume(error -> {
+          LOGGER.info("Token introspection failed: {}", error.getMessage());
+          return Mono.error(error);
+        })
         .flatMap(i -> googleService.getUserInfo(token))
         .map(this::fromUserInfo);
   }
