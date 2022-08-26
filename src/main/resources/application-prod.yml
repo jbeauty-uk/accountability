@@ -1,4 +1,7 @@
 spring:
+  webflux:
+    base-path: accountability
+
   security:
     cors:
       allowed-origins:
@@ -7,9 +10,8 @@ spring:
     url: r2dbc:postgresql://${POSTGRES_HOST}/postgres
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
+
   flyway:
     url: jdbc:postgresql://${POSTGRES_HOST}/postgres
     user: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
-  webflux:
-    base-path: accountability

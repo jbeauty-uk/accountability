@@ -14,7 +14,7 @@ class ReceiptController {
   private final ReceiptService receiptService;
 
   @GetMapping
-  Flux<Receipt> receipts(BearerTokenAuthentication authentication) {
+  Flux<Receipt> getAllReceipts(BearerTokenAuthentication authentication) {
     return receiptService.findAll(authentication.getName());
   }
 
