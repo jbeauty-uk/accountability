@@ -7,11 +7,11 @@ spring:
       allowed-origins:
         - https://accountability.jbeauty.uk
   r2dbc:
-    url: r2dbc:postgresql://${POSTGRES_HOST}/postgres
+    url: r2dbc:postgresql://${POSTGRES_HOST}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
 
   flyway:
-    url: jdbc:postgresql://${POSTGRES_HOST}/postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}
     user: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}

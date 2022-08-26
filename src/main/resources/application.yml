@@ -11,3 +11,13 @@ spring:
       allowed-headers:
         - Authorization
         - Content-Type
+
+  r2dbc:
+    url: ${spring.r2dbc.url}
+    username: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+
+  flyway:
+    url: ${spring.flyway.url}
+    user: ${spring.flyway.user}
+    password: ${spring.flyway.password}

@@ -28,7 +28,7 @@ dependencies {
   runtimeOnly 'org.postgresql:r2dbc-postgresql'
 
   // Flyway
-  compileOnly 'org.flywaydb:flyway-core:8.5.13'
+  implementation 'org.flywaydb:flyway-core:8.5.13'
   runtimeOnly 'org.springframework.data:spring-data-jdbc'
   runtimeOnly 'org.postgresql:postgresql'
 

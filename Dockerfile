@@ -1,5 +1,5 @@
 FROM eclipse-temurin:17-jre
-COPY app.jar app.jar
+COPY ./build/libs/accountability.jar app.jar
 
 ENV SPRING_PROFILES_ACTIVE=prod
 
