@@ -1,9 +1,9 @@
 import axios from "axios";
-import {useState} from "react";
-import {useSWRConfig} from "swr";
-import {isoDate} from "../../lib/date";
-import {PrimaryButton} from "../buttons";
-import {DateInput, RadioInput, TextareaInput, TextInput} from "../formInputs";
+import { useState } from "react";
+import { useSWRConfig } from "swr";
+import { isoDate } from "../../lib/date";
+import { PrimaryButton } from "../buttons";
+import { DateInput, RadioInput, TextareaInput, TextInput } from "../formInputs";
 
 export default function ReceiptForm({ close, receipt }) {
   const { mutate } = useSWRConfig();
@@ -34,7 +34,7 @@ export default function ReceiptForm({ close, receipt }) {
       type,
       date,
       details,
-      amount: amount * 100,
+      amount: (amount * 100).toFixed(0),
     });
     mutate(process.env.NEXT_PUBLIC_RECEIPTS_URL);
     close();
@@ -46,7 +46,7 @@ export default function ReceiptForm({ close, receipt }) {
       type,
       date,
       details,
-      amount: amount * 100,
+      amount: (amount * 100).toFixed(0),
     });
     mutate(process.env.NEXT_PUBLIC_RECEIPTS_URL);
     close();
