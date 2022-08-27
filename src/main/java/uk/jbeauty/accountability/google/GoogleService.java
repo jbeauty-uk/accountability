@@ -1,8 +1,8 @@
 package uk.jbeauty.accountability.google;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMapAdapter;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -14,10 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Slf4j
 class GoogleService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(GoogleService.class);
 
   private final GoogleConfiguration googleConfiguration;
   private final ApiService apiService;
@@ -44,7 +43,7 @@ class GoogleService {
   private boolean isTokenAudienceValid(String audience) {
     var isValid = audience.equals(googleConfiguration.clientId());
     if (!isValid) {
-      LOGGER.info("Received access token with invalid audience");
+      log.info("Received access token with invalid audience");
     }
     return isValid;
   }
