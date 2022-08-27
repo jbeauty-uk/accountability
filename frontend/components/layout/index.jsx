@@ -9,7 +9,6 @@ export default function Layout({ children }) {
   });
 
   useEffect(() => {
-    console.log(session);
     if (session?.error === "RefreshAccessTokenError") {
       signIn(); // Force sign in to hopefully resolve error
     }
