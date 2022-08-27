@@ -107,7 +107,7 @@ export default function ReceiptForm({ close, receipt }) {
             value={amount}
             onChange={updateAmount}
             pattern="\d*"
-            inputMode="numeric"
+            inputMode="decimal"
           />
           <PrimaryButton
             text={receipt.id ? "Update receipt" : "Create receipt"}
