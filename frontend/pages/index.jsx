@@ -1,4 +1,4 @@
-import PageHeading from "../components/layout/pageHeading";
+import { PageHeading } from "../components/headings";
 import Summary from "../components/summary";
 
 export default function Home() {

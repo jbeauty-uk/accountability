@@ -9,6 +9,18 @@ body {
     sans-serif;
 }
 
+button {
+  @apply text-sm;
+}
+
 .container {
   @apply p-4;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-xl;
 }
