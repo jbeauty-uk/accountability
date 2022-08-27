@@ -1,6 +1,6 @@
-import {useRouter} from "next/router";
-import {PrimaryButton} from "../buttons";
-import PageHeading from "../layout/pageHeading";
+import { useRouter } from "next/router";
+import { PrimaryButton } from "../buttons";
+import { PageHeading } from "../headings";
 import LatestReceipts from "./latestReceipts";
 import ReceiptForm from "./receiptForm";
 
@@ -19,7 +19,6 @@ export default function ReceiptsPage({ showForm = false, receipt = {} }) {
         text="Add new receipt"
         onClick={() => router.push("/receipts/new")}
       />
-
       {showForm && <ReceiptForm close={closeForm} receipt={receipt} />}
       <LatestReceipts />
     </div>

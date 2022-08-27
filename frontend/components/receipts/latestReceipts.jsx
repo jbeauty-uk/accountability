@@ -1,25 +1,22 @@
-import { useReceipts } from "../../lib/receipts";
-import ReceiptPreview from "./receiptPreview";
-
-const receiptSort = (a, b) => {
-  const aCreatedAt = new Date(a.createdAt);
-  const bCreatedAt = new Date(b.createdAt);
-  return bCreatedAt.getTime() - aCreatedAt.getTime();
-};
+import { format } from "date-fns";
+import { groupByDate, useReceipts } from "../../lib/receipts";
+import ReceiptGroup from "./receiptGroup";
 
 export default function LatestReceipts() {
   const { receipts } = useReceipts();
 
+  const groups = groupByDate(receipts);
+
   return (
     <>
-      <h2 className="text-xl">Latest Receipts</h2>
       <div className="flex flex-col space-y-3">
-        {receipts &&
-          receipts
-            .sort(receiptSort)
-            .map((receipt, index) => (
-              <ReceiptPreview key={index} {...receipt} />
-            ))}
+        {groups &&
+          groups.map(({ group, receipts }) => {
+            const title = format(Date.parse(group), "PPP");
+            return (
+              <ReceiptGroup key={group} title={title} receipts={receipts} />
+            );
+          })}
       </div>
     </>
   );
