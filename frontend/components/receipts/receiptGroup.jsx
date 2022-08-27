@@ -21,14 +21,12 @@ export default function ReceiptGroup({ title, receipts = [] }) {
 
   return (
     <div className="flex flex-col space-y-3">
-      <div className="flex justify-between">
-        <div className="flex items-center space-x-2">
-          <h2>{title}</h2>
-          <h2>({formatCurrency("en-GB", "GBP", total)})</h2>
-        </div>
-        <p className="float-right" onClick={() => setOpen(!open)}>
-          {open ? "Hide" : "Show"}
-        </p>
+      <div
+        className="flex items-center space-x-2"
+        onClick={() => setOpen(!open)}
+      >
+        <h2>{title}</h2>
+        <h2>({formatCurrency("en-GB", "GBP", total)})</h2>
       </div>
 
       {open && (

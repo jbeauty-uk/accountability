@@ -10,6 +10,7 @@ export default function LatestReceipts() {
   return (
     <>
       <div className="flex flex-col space-y-3">
+        <p className="text-sm">Click each date to show/hide receipts</p>
         {groups &&
           groups.map(({ group, receipts }) => {
             const title = format(Date.parse(group), "PPP");

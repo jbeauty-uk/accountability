@@ -101,7 +101,7 @@ export default function Dropdown({
       <span className={labelClassName}>{label}</span>
       <select
         className={inputClassName}
-        defaultValue={options[defaultOption].value}
+        defaultValue={options[defaultOption]}
         onChange={onChange}
       >
         {options.map((option) => (

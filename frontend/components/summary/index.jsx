@@ -1,29 +1,15 @@
-import { useState } from "react";
-import { formatCurrency } from "../../lib/money";
-import { useReceipts } from "../../lib/receipts";
-import {
-  calculateTotalExpensesForYear,
-  calculateTotalIncomeForYear,
-  getAvailableYears,
-} from "../../lib/summary";
+import { useAvailableYears, useYearCalculations } from "../../lib/summary";
 import { Card } from "../cards";
 import Dropdown from "../formInputs";
 import NoDataAvailable from "./noDataAvailable";
 
 export default function Summary() {
-  const { receipts, isLoading, isError } = useReceipts();
-  const [year, setYear] = useState(getAvailableYears(receipts)[0]);
+  const { years, selectedYear, setSelectedYear } = useAvailableYears();
 
-  if (isLoading) return <p>Loading</p>;
-  if (isError) return <p>Error</p>;
+  const { totalIncome, totalExpenses, total } =
+    useYearCalculations(selectedYear);
 
-  const availableYears = getAvailableYears(receipts);
-  const onChange = (e) => setYear(e.target.value);
-
-  const totalIncome = calculateTotalIncomeForYear(receipts, year);
-  const totalExpenses = calculateTotalExpensesForYear(receipts, year);
-
-  if (!availableYears.length) {
+  if (!years.length) {
     return <NoDataAvailable />;
   }
 
@@ -31,23 +17,19 @@ export default function Summary() {
     <div className="flex flex-col space-y-4">
       <Dropdown
         label="Show summary for year"
-        options={availableYears}
-        onChange={onChange}
+        options={years}
+        onChange={(e) => setSelectedYear(e.target.value)}
       />
       <div className="grid grid-col-2 gap-2">
-        <Card
-          heading="Total"
-          body={formatCurrency("en-GB", "GBP", totalIncome - totalExpenses)}
-          className="col-span-2"
-        />
+        <Card heading="Total" body={total} className="col-span-2" />
         <Card
           heading="In"
-          body={formatCurrency("en-GB", "GBP", totalIncome)}
+          body={totalIncome}
           className="border-green-500 bg-green-200"
         />
         <Card
           heading="Out"
-          body={formatCurrency("en-GB", "GBP", totalExpenses)}
+          body={totalExpenses}
           className="border-red-500 bg-red-200"
         />
       </div>
