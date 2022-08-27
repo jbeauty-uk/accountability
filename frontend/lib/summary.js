@@ -1,9 +1,13 @@
 export function getAvailableYears(receipts = []) {
   if (receipts.length) {
-    return receipts
-      .map((receipt) => receipt.date)
-      .reduce((previous, current) => [...previous, current.slice(0, 4)], [])
-      .sort((a, b) => b - a);
+    return [
+      ...new Set(
+        receipts
+          .map((receipt) => receipt.date)
+          .map((date) => date.slice(0, 4))
+          .reduce((previous, current) => [...previous, current], [])
+      ),
+    ].sort((a, b) => b - a);
   }
 
   return [];
