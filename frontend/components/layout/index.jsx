@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import Head from "next/head";
 import { useEffect } from "react";
 import Navigation from "../navigation";
 
@@ -10,6 +9,7 @@ export default function Layout({ children }) {
   });
 
   useEffect(() => {
+    console.log(session);
     if (session?.error === "RefreshAccessTokenError") {
       signIn(); // Force sign in to hopefully resolve error
     }
@@ -21,16 +21,10 @@ export default function Layout({ children }) {
     ] = `Bearer ${session.accessToken}`;
   }
 
+  if (!session) return <p>Loading</p>;
+
   return (
     <>
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
       <div className="min-h-screen flex flex-col">
         <header className="container flex flex-col space-y-2 border-b border-black">
           <Navigation />
