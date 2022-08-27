@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatCurrency } from "../../lib/money";
 import { useReceipts } from "../../lib/receipts";
 import {
   calculateTotalExpensesForYear,
@@ -36,17 +37,17 @@ export default function Summary() {
       <div className="grid grid-col-2 gap-2">
         <Card
           heading="Total"
-          body={totalIncome - totalExpenses}
+          body={formatCurrency("en-GB", "GBP", totalIncome - totalExpenses)}
           className="col-span-2"
         />
         <Card
-          heading="Income"
-          body={totalIncome}
+          heading="In"
+          body={formatCurrency("en-GB", "GBP", totalIncome)}
           className="border-green-500 bg-green-200"
         />
         <Card
-          heading="Expenses"
-          body={totalExpenses}
+          heading="Out"
+          body={formatCurrency("en-GB", "GBP", totalExpenses)}
           className="border-red-500 bg-red-200"
         />
       </div>

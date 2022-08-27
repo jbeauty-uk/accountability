@@ -1,4 +1,4 @@
-import {useReceipts} from "../../lib/receipts";
+import { useReceipts } from "../../lib/receipts";
 import ReceiptPreview from "./receiptPreview";
 
 const receiptSort = (a, b) => {

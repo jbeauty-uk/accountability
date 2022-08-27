@@ -1,10 +1,17 @@
-import {useState} from "react";
+import { useState } from "react";
 
 const labelClassName = "text-gray-700";
 const inputClassName =
   "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-300 focus:ring focus:ring-sky-200 focus:ring-opacity-50";
 
-export function TextInput({ label, type, value, onChange }) {
+export function TextInput({
+  label,
+  type,
+  value,
+  pattern,
+  inputMode,
+  onChange,
+}) {
   return (
     <label className="block">
       <span className={labelClassName}>{label}</span>
@@ -13,6 +20,8 @@ export function TextInput({ label, type, value, onChange }) {
         value={value}
         onChange={onChange}
         className={inputClassName}
+        pattern={pattern}
+        inputMode={inputMode}
       />
     </label>
   );
@@ -40,7 +49,7 @@ export function TextareaInput({ label, value, onChange }) {
         rows="3"
         value={value}
         onChange={onChange}
-        className={inputClassName}
+        className={`${inputClassName} resize-none`}
       />
     </label>
   );

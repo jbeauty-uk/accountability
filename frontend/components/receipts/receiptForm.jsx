@@ -13,6 +13,18 @@ export default function ReceiptForm({ close, receipt }) {
   const [details, setDetails] = useState(receipt.details || "");
   const [amount, setAmount] = useState(receipt.amount / 100 || "");
 
+  const updateAmount = (e) => {
+    const value = e.target.value;
+    const isDecimal = value.includes(".");
+    const numberOfDecimals = isDecimal
+      ? value.slice(value.indexOf(".") + 1, value.length).length
+      : 0;
+
+    if (numberOfDecimals <= 2) {
+      setAmount(value);
+    }
+  };
+
   const radioOptions = [
     {
       label: "Income",
@@ -93,7 +105,9 @@ export default function ReceiptForm({ close, receipt }) {
             label="Amount"
             type="number"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={updateAmount}
+            pattern="\d*"
+            inputMode="numeric"
           />
           <PrimaryButton
             text={receipt.id ? "Update receipt" : "Create receipt"}
