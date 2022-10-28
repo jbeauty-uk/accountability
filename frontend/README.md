@@ -17,7 +17,7 @@ cd frontend
 Step 1. Copy the contents of `.env.sample` to `.env.local`
 
 ```bash
-cp .env .env.local
+cp .env.sample .env.local
 ```
 
 Step 2. Fill out the .env.local.
