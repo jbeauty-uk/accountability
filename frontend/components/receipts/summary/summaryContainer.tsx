@@ -31,7 +31,7 @@ const SummaryContainer = () => {
   }, [summaryIndex]);
 
   return (
-    <div className="flex flex-col py-4">
+    <div className="flex flex-col my-4 space-y-3">
       <h2>Showing summary for selected period</h2>
       <ul className="grid grid-cols-4 rounded-full text-center">
         {summaryTypes.map((summary, index) => {
@@ -58,7 +58,7 @@ const SummaryContainer = () => {
           exit={{ y: 50, scale: 0.9, opacity: 0 }}
           transition={{ duration: 0.2, ease: "anticipate" }}
         >
-          <div className="aspect-square w-full bg-neutral-200 p-4 rounded-b-md mt-2">
+          <div className="aspect-square w-full bg-neutral-200 p-4 rounded-b-md">
             {selectedSummary ? selectedSummary.label : "😋"}
           </div>
         </motion.div>
