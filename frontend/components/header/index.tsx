@@ -1,44 +1,11 @@
-import { AnimatePresence, motion, useCycle, Variants } from "framer-motion";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { AnimatePresence, motion, useCycle } from "framer-motion";
 import { SITE_BRANDING } from "../../constants";
-
-type Route = {
-  displayText: string;
-  href: string;
-  onClick?: () => void;
-};
+import Navigation from "./nav";
+import Link from "next/link";
 
 const duration = 0.2;
 
-const routes: Route[] = [
-  {
-    displayText: "Home",
-    href: "/",
-  },
-  {
-    displayText: "Receipts",
-    href: "/receipts",
-  },
-];
-
-const navigationVariants: Variants = {
-  open: { height: "auto" },
-  closed: { height: 0 },
-};
-
-const routeVariants: Variants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 300, damping: 24 },
-  },
-  closed: { opacity: 0, y: -20, transition: { duration } },
-};
-
 const Header = () => {
-  const { route } = useRouter();
-
   const [isOpen, cycleOpen] = useCycle(false, true);
 
   return (
@@ -75,32 +42,7 @@ const Header = () => {
         </motion.div>
       </div>
       <AnimatePresence>
-        {isOpen && (
-          <motion.ul
-            variants={navigationVariants}
-            exit={"closed"}
-            initial={"closed"}
-            animate={"open"}
-          >
-            <div className="flex flex-col items-end space-y-6 text-xl px-4 pb-6">
-              {routes.map(({ displayText, href }) => (
-                <motion.li key={href} variants={routeVariants}>
-                  <Link
-                    href={href}
-                    onClick={cycleOpen}
-                    className={
-                      route === href
-                        ? "underline underline-offset-4 font-semibold"
-                        : "no-underline"
-                    }
-                  >
-                    {displayText}
-                  </Link>
-                </motion.li>
-              ))}
-            </div>
-          </motion.ul>
-        )}
+        {isOpen && <Navigation cycleOpen={cycleOpen} />}
       </AnimatePresence>
     </motion.div>
   );
