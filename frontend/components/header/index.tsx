@@ -18,7 +18,7 @@ const Header = () => {
         ease: "anticipate",
       }}
     >
-      <div className="flex flex-row items-center justify-between px-4 py-6">
+      <div className="flex flex-row items-center justify-between px-6 py-6">
         <Link href="/" className="text-2xl">
           {SITE_BRANDING}
         </Link>

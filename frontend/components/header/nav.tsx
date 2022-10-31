@@ -51,7 +51,7 @@ const Navigation = ({ cycleOpen }: Props) => {
       initial={"closed"}
       animate={"open"}
     >
-      <div className="flex flex-col items-end space-y-6 text-xl px-4 py-20">
+      <div className="flex flex-col items-end space-y-6 text-xl px-6 py-12">
         {routes.map(({ displayText, href }) => (
           <motion.li key={href} variants={routeVariants}>
             <Link

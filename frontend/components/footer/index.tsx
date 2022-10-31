@@ -1,7 +1,7 @@
 import { COPYRIGHT_YEAR, SITE_BRANDING } from "../../constants";
 
 const Footer = () => (
-  <footer className="bg-neutral-900 text-stone-50 flex flex-col space-y-6 px-4 py-6">
+  <footer className="bg-neutral-900 text-stone-50 flex flex-col space-y-6 px-6 py-6">
     <div className="flex flex-col space-y-1 items-start justify-between py-8">
       <p className="text-xl font-semibold">{SITE_BRANDING}</p>
       <div className="flex flex-row text-sm">
