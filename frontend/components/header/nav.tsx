@@ -1,5 +1,5 @@
 import { motion, Variants } from "framer-motion";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -44,8 +44,6 @@ const Navigation = ({ cycleOpen }: Props) => {
 
   const name = data?.user?.name;
 
-  console.log(name);
-
   return (
     <motion.ul
       variants={navigationVariants}
@@ -53,7 +51,7 @@ const Navigation = ({ cycleOpen }: Props) => {
       initial={"closed"}
       animate={"open"}
     >
-      <div className="flex flex-col items-end space-y-6 text-xl px-4 pb-6">
+      <div className="flex flex-col items-end space-y-6 text-xl px-4 py-20">
         {routes.map(({ displayText, href }) => (
           <motion.li key={href} variants={routeVariants}>
             <Link
@@ -74,14 +72,16 @@ const Navigation = ({ cycleOpen }: Props) => {
         variants={routeVariants}
         className="flex flex-col items-center"
       >
-        {status === "authenticated" ? (
-          <div className="p-4">
-            <p>{`Signed in as ${name?.split(" ")[0]}. Sign out`}</p>
-            <button onClick={() => signOut()}></button>
-          </div>
-        ) : (
-          <button onClick={() => signIn()}>Sign in</button>
-        )}
+        <div className="flex flex-row p-4 space-x-2">
+          {status === "authenticated" ? (
+            <>
+              <p>{`Signed in as ${name?.split(" ")[0]}.`}</p>
+              <button onClick={() => signOut()}>Sign out</button>
+            </>
+          ) : (
+            <button onClick={() => signIn()}>Sign in</button>
+          )}
+        </div>
       </motion.div>
     </motion.ul>
   );
