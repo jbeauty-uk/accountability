@@ -18,7 +18,7 @@ const SignIn = ({ providers }: Props) => {
   };
 
   return (
-    <div className="flex flex-col space-y-4">
+    <>
       <h1 className="text-2xl">Sign in</h1>
       {Object.values(providers).map((provider) => (
         <div key={provider.name} className="border rounded-md p-4">
@@ -27,7 +27,7 @@ const SignIn = ({ providers }: Props) => {
           </button>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

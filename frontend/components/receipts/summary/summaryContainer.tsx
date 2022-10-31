@@ -31,7 +31,7 @@ const SummaryContainer = () => {
   }, [summaryIndex]);
 
   return (
-    <div className="flex flex-col my-4 space-y-3">
+    <div className="flex flex-col space-y-3">
       <h2>Showing summary for selected period</h2>
       <ul className="grid grid-cols-4 rounded-full text-center">
         {summaryTypes.map((summary, index) => {
