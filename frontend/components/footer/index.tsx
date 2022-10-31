@@ -14,7 +14,7 @@ const Footer = () => (
       <a
         href="https://dgrinbergs.com"
         target="_blank"
-        rel="noopener"
+        rel="noreferrer"
         className="underline underline-offset-2"
       >
         DGrinbergs.com
