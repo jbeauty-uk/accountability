@@ -7,7 +7,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => (
   <div className="flex flex-col overflow-x-hidden">
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col min-h-screen">
       <Header />
       <div className="px-4 py-6">{children}</div>
     </div>
