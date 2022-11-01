@@ -1,12 +1,14 @@
-import { AnimatePresence, motion, useCycle } from "framer-motion";
+import { AnimatePresence, motion, useCycle, useInView } from "framer-motion";
 import { SITE_BRANDING } from "../../constants";
 import Navigation from "./nav";
 import Link from "next/link";
+import { useRef } from "react";
 
 const duration = 0.2;
 
 const Header = () => {
   const [isOpen, cycleOpen] = useCycle(false, true);
+  const siteBranding = useRef(null);
 
   return (
     <motion.div
@@ -19,9 +21,16 @@ const Header = () => {
       }}
     >
       <div className="flex flex-row items-center justify-between px-6 py-6">
-        <Link href="/" className="text-2xl">
-          {SITE_BRANDING}
-        </Link>
+        <motion.div
+          ref={siteBranding}
+          initial={{ y: -5, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          <Link href="/" className="text-2xl">
+            {SITE_BRANDING}
+          </Link>
+        </motion.div>
         <motion.div
           variants={{
             open: { rotate: 180 },
