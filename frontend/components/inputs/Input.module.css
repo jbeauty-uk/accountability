@@ -1,0 +1,35 @@
+.input {
+  @apply block;
+}
+
+.input-label {
+  @apply text-lg;
+  @apply text-neutral-900;
+}
+
+.input-field {
+  @apply mt-1;
+  @apply block;
+  @apply w-full;
+  @apply rounded-md;
+  @apply border-gray-300;
+  @apply shadow-sm;
+  @apply focus:border-purple-300;
+  @apply focus:ring;
+  @apply focus:ring-purple-200;
+  @apply focus:ring-opacity-50;
+}
+
+.input-textarea {
+  @apply mt-1;
+  @apply block;
+  @apply w-full;
+  @apply rounded-md;
+  @apply border-gray-300;
+  @apply shadow-sm;
+  @apply focus:border-purple-300;
+  @apply focus:ring;
+  @apply focus:ring-purple-200;
+  @apply focus:ring-opacity-50;
+  @apply resize-none;
+}

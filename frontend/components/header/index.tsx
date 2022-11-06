@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useCycle, useInView } from "framer-motion";
+import { AnimatePresence, motion, useCycle } from "framer-motion";
 import { SITE_BRANDING } from "../../constants";
 import Navigation from "./nav";
 import Link from "next/link";
