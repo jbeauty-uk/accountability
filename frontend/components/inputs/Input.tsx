@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import styles from "./Input.module.css";
 
 export enum InputType {
@@ -19,12 +19,13 @@ export interface Props<T> {
 }
 
 const FormInput = <T extends number | string>(props: InputProps<T>) => {
-  const { type = "text", label, placeholder, onChange } = props;
+  const { type = "text", label, placeholder, value, onChange } = props;
 
   const attributes = {
     placeholder,
     className: styles["input-field"],
     type,
+    value,
     onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
   };
 

@@ -1,11 +1,11 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
+import { DateTime } from "luxon";
 import { useState } from "react";
 import Form from "../forms/form";
 import Input, { InputType } from "../inputs/Input";
 import Textarea from "../inputs/Textarea";
 import Toggle, { TogglePosition } from "../inputs/toggle";
-import { DateTime } from "luxon";
 
 type Props = {
   onClose: () => void;
@@ -16,19 +16,19 @@ enum ReceiptType {
   INCOME,
 }
 
+const dateFormat = "yyyy-MM-dd";
+
 const AddReceiptForm = ({ onClose }: Props) => {
   const [type, setType] = useState(ReceiptType.EXPENSE);
-  const [date, setDate] = useState(DateTime.now().toUnixInteger());
+  const [date, setDate] = useState(DateTime.now().toFormat(dateFormat));
   const [additionalDetails, setAdditionalDetails] = useState("");
   const [amount, setAmount] = useState("0");
 
-  const handleReceiptTypeToggle = (value: TogglePosition) =>
-    setType(value ? ReceiptType.INCOME : ReceiptType.EXPENSE);
+  const handleReceiptTypeToggle = (isTrue: TogglePosition) =>
+    setType(isTrue ? ReceiptType.INCOME : ReceiptType.EXPENSE);
 
-  const updateDate = (value: string) => {
-    setDate(DateTime.fromISO(value).toUnixInteger());
-    console.log(date);
-  };
+  const updateDate = (value: string) =>
+    setDate(DateTime.fromISO(value).toFormat(dateFormat));
 
   return (
     <motion.div
@@ -43,7 +43,7 @@ const AddReceiptForm = ({ onClose }: Props) => {
           <h1 className="text-2xl">New Receipt</h1>
           <XMarkIcon className="h-10 w-10 text-neutral-900" onClick={onClose} />
         </div>
-        <Form>
+        <Form buttonLabel="Add receipt">
           <>
             <Toggle
               labelWhenOn="Income"

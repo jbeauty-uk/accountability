@@ -41,7 +41,7 @@ const Toggle = ({ labelWhenOn, labelWhenOff, onChange }: Props) => {
         />
       </div>
       <p className="text-lg">
-        {position === TogglePosition.ON ? `${labelWhenOn} ` : `${labelWhenOff}`}
+        {position === TogglePosition.ON ? `${labelWhenOn}` : `${labelWhenOff}`}
       </p>
     </div>
   );

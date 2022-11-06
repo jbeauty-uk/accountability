@@ -4,8 +4,6 @@ import Navigation from "./nav";
 import Link from "next/link";
 import { useRef } from "react";
 
-const duration = 0.2;
-
 const Header = () => {
   const [isOpen, cycleOpen] = useCycle(false, true);
   const siteBranding = useRef(null);
@@ -36,7 +34,7 @@ const Header = () => {
             open: { rotate: 180 },
             closed: { rotate: 0 },
           }}
-          transition={{ duration }}
+          transition={{ duration: 0.2 }}
           style={{ originY: 0.5 }}
           onClick={() => cycleOpen()}
         >
