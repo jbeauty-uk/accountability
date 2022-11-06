@@ -1,0 +1,10 @@
+.button-primary {
+  @apply p-4;
+  @apply border rounded-md;
+  @apply font-semibold;
+  @apply bg-purple-600 text-neutral-50;
+}
+
+.button-primary:disabled {
+  @apply bg-purple-300 text-neutral-50;
+}

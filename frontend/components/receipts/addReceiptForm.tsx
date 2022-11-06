@@ -12,8 +12,8 @@ type Props = {
 };
 
 enum ReceiptType {
-  EXPENSE,
-  INCOME,
+  EXPENSE = "expense",
+  INCOME = "income",
 }
 
 const dateFormat = "yyyy-MM-dd";
@@ -22,13 +22,23 @@ const AddReceiptForm = ({ onClose }: Props) => {
   const [type, setType] = useState(ReceiptType.EXPENSE);
   const [date, setDate] = useState(DateTime.now().toFormat(dateFormat));
   const [additionalDetails, setAdditionalDetails] = useState("");
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("");
 
   const handleReceiptTypeToggle = (isTrue: TogglePosition) =>
     setType(isTrue ? ReceiptType.INCOME : ReceiptType.EXPENSE);
 
   const updateDate = (value: string) =>
     setDate(DateTime.fromISO(value).toFormat(dateFormat));
+
+  const handleSubmit = async () => {
+    await new Promise((res) => setTimeout(res, 1000));
+    console.log({
+      type,
+      date,
+      additionalDetails,
+      amount,
+    });
+  };
 
   return (
     <motion.div
@@ -38,12 +48,12 @@ const AddReceiptForm = ({ onClose }: Props) => {
       exit={{ y: "100%" }}
       transition={{ duration: 0.5, ease: "anticipate" }}
     >
-      <div className="p-6">
+      <div className="p-6 flex flex-col space-y-6">
         <div className="flex flex-row items-center justify-between">
           <h1 className="text-2xl">New Receipt</h1>
           <XMarkIcon className="h-10 w-10 text-neutral-900" onClick={onClose} />
         </div>
-        <Form buttonLabel="Add receipt">
+        <Form buttonLabel="Add receipt" onSubmit={handleSubmit}>
           <>
             <Toggle
               labelWhenOn="Income"
@@ -58,6 +68,7 @@ const AddReceiptForm = ({ onClose }: Props) => {
             />
             <Textarea
               label="Additional details"
+              required={false}
               value={additionalDetails}
               onChange={setAdditionalDetails}
             />

@@ -3,8 +3,9 @@
 }
 
 .input-label {
-  @apply text-lg;
   @apply text-neutral-900;
+  @apply flex flex-row space-x-1;
+  @apply items-baseline;
 }
 
 .input-field {

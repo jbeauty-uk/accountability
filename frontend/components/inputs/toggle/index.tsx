@@ -20,8 +20,8 @@ const spring = {
 
 const Toggle = ({ labelWhenOn, labelWhenOff, onChange }: Props) => {
   const [position, cyclePosition] = useCycle(
-    TogglePosition.ON,
-    TogglePosition.OFF
+    TogglePosition.OFF,
+    TogglePosition.ON
   );
 
   const toggle = () => {
@@ -30,8 +30,8 @@ const Toggle = ({ labelWhenOn, labelWhenOff, onChange }: Props) => {
   };
 
   return (
-    <div className="flex flex-row space-x-2 items-center">
-      <div className={styles.switch} onClick={toggle} data-ison={position}>
+    <div className="flex flex-row space-x-2 items-center" onClick={toggle}>
+      <div className={styles.switch} data-ison={position}>
         <motion.div
           className={styles.toggle}
           layout
