@@ -1,3 +1,4 @@
+import { DateTime, Duration } from "luxon";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -15,6 +16,7 @@ const GOOGLE_AUTHORIZATION_URL =
  * returns the old token and an error property
  */
 async function refreshAccessToken(token) {
+  console.log("refreshing token");
   try {
     const url =
       "https://oauth2.googleapis.com/token?" +
@@ -41,12 +43,11 @@ async function refreshAccessToken(token) {
     return {
       ...token,
       accessToken: refreshedTokens.access_token,
-      accessTokenExpires: Date.now() + refreshedTokens.expires_at * 1000,
+      accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
-    console.log(error);
-
+    console.error(error);
     return {
       ...token,
       error: "RefreshAccessTokenError",
@@ -68,11 +69,12 @@ const authOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
+      console.log(token);
       // Initial sign in
       if (account && user) {
         return {
           accessToken: account.access_token,
-          accessTokenExpires: Date.now() + account.expires_at * 1000,
+          accessTokenExpires: account.expires_at * 1000,
           refreshToken: account.refresh_token,
           user,
         };
