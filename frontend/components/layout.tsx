@@ -1,31 +1,42 @@
-import { useSession } from "next-auth/react";
+import { AnimatePresence } from "framer-motion";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect } from "react";
 import Footer from "./footer";
 import Header from "./header";
-import axios from "axios";
+import LoadingBar from "./loading/loadingBar";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout = ({ children }: LayoutProps) => {
-  const session = useSession();
+const Layout = (props: LayoutProps) => {
+  const { status, data: session } = useSession();
 
-  console.log(session.data?.accessToken);
-
-  axios.defaults.baseURL = process.env.APP_URL;
-  axios.defaults.headers.common["Authorization"] = `Bearer `;
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      signIn(); // Force sign in to hopefully resolve error
+    }
+  }, [session]);
 
   return (
-    <div className="flex flex-col overflow-x-hidden">
-      <div className="flex flex-col h-screen">
+    <div className="flex flex-col">
+      <div className="flex flex-col h-screen relative">
         <Header />
-        <div className="relative flex-grow px-6 py-6 flex flex-col space-y-6">
-          {children}
-        </div>
+        <AnimatePresence mode="wait">
+          {/* <LoadingBar /> */}
+          {status === "loading" && <LoadingBar />}
+          {status === "authenticated" && <PageContent {...props} />}
+        </AnimatePresence>
       </div>
       <Footer />
     </div>
   );
 };
+
+const PageContent = ({ children }: LayoutProps) => (
+  <div className="mt-20 relative h-full px-6 py-6 flex flex-col space-y-6">
+    {children}
+  </div>
+);
 
 export default Layout;

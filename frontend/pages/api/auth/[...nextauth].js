@@ -16,7 +16,6 @@ const GOOGLE_AUTHORIZATION_URL =
  * returns the old token and an error property
  */
 async function refreshAccessToken(token) {
-  console.log("refreshing token");
   try {
     const url =
       "https://oauth2.googleapis.com/token?" +
@@ -47,7 +46,7 @@ async function refreshAccessToken(token) {
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
     };
   } catch (error) {
-    console.error(error);
+    console.error("An error occurred when refreshing the token", error);
     return {
       ...token,
       error: "RefreshAccessTokenError",
@@ -69,7 +68,6 @@ const authOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log(token);
       // Initial sign in
       if (account && user) {
         return {

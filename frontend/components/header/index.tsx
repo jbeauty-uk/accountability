@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <motion.div
-      className="bg-neutral-900 text-stone-50 relative"
+      className="bg-neutral-900 text-stone-50 absolute top-0 left-0 right-0 z-50"
       initial="closed"
       animate={isOpen ? "open" : "closed"}
       transition={{
