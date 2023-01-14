@@ -1,4 +1,3 @@
-import { DateTime, Duration } from "luxon";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -63,9 +62,6 @@ const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: "/auth/signin",
-  },
   callbacks: {
     async jwt({ token, user, account }) {
       // Initial sign in

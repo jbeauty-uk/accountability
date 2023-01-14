@@ -23,7 +23,6 @@ const Layout = (props: LayoutProps) => {
       <div className="flex flex-col h-screen relative">
         <Header />
         <AnimatePresence mode="wait">
-          {/* <LoadingBar /> */}
           {status === "loading" && <LoadingBar />}
           {status === "authenticated" && <PageContent {...props} />}
         </AnimatePresence>
