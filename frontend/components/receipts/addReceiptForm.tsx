@@ -1,3 +1,4 @@
+import { gql, useMutation } from "@apollo/client";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { DateTime } from "luxon";
@@ -5,7 +6,7 @@ import { useState } from "react";
 import Form from "../forms/form";
 import Input, { InputType } from "../inputs/Input";
 import Textarea from "../inputs/Textarea";
-import Toggle, { TogglePosition } from "../inputs/toggle";
+import Toggle from "../inputs/toggle";
 
 type Props = {
   onClose: () => void;
@@ -18,26 +19,40 @@ enum ReceiptType {
 
 const dateFormat = "yyyy-MM-dd";
 
+const ADD_RECEIPT = gql`
+  mutation addReceipt($date: Date!, $details: String, $amount: Int!) {
+    addReceipt(date: $date, details: $details, amount: $amount) {
+      id
+    }
+  }
+`;
+
 const AddReceiptForm = ({ onClose }: Props) => {
   const [type, setType] = useState(ReceiptType.EXPENSE);
   const [date, setDate] = useState(DateTime.now().toFormat(dateFormat));
   const [additionalDetails, setAdditionalDetails] = useState("");
   const [amount, setAmount] = useState("");
 
-  const handleReceiptTypeToggle = (isTrue: TogglePosition) =>
-    setType(isTrue ? ReceiptType.INCOME : ReceiptType.EXPENSE);
+  const [addReceipt, { data, loading, error }] = useMutation(ADD_RECEIPT, {
+    variables: {
+      date,
+      details: additionalDetails,
+      amount:
+        type == ReceiptType.INCOME
+          ? parseInt(amount) * 100
+          : parseInt(amount) * -100,
+    },
+  });
+
+  if (loading) return <p>Loading</p>;
+  if (error) return <p>Error</p>;
 
   const updateDate = (value: string) =>
     setDate(DateTime.fromISO(value).toFormat(dateFormat));
 
-  const handleSubmit = async () => {
-    await new Promise((res) => setTimeout(res, 1000));
-    console.log({
-      type,
-      date,
-      additionalDetails,
-      amount,
-    });
+  const handleSubmit = () => {
+    addReceipt();
+    onClose();
   };
 
   return (
@@ -58,7 +73,9 @@ const AddReceiptForm = ({ onClose }: Props) => {
             <Toggle
               labelWhenOn="Income"
               labelWhenOff="Expense"
-              onChange={handleReceiptTypeToggle}
+              onChange={(isOn) =>
+                setType(isOn ? ReceiptType.INCOME : ReceiptType.EXPENSE)
+              }
             />
             <Input
               label="Date"

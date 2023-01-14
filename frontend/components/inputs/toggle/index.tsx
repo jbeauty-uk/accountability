@@ -1,16 +1,12 @@
-import { motion, useCycle } from "framer-motion";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import styles from "./Toggle.module.css";
 
 type Props = {
   labelWhenOn: string;
   labelWhenOff: string;
-  onChange: (value: TogglePosition) => void;
+  onChange: (value: boolean) => void;
 };
-
-export enum TogglePosition {
-  ON = 1,
-  OFF = 0,
-}
 
 const spring = {
   type: "spring",
@@ -19,19 +15,17 @@ const spring = {
 };
 
 const Toggle = ({ labelWhenOn, labelWhenOff, onChange }: Props) => {
-  const [position, cyclePosition] = useCycle(
-    TogglePosition.OFF,
-    TogglePosition.ON
-  );
+  const [isOn, setIsOn] = useState(false);
+
+  useEffect(() => onChange(isOn), [isOn]);
 
   const toggle = () => {
-    cyclePosition();
-    onChange(position);
+    setIsOn(!isOn);
   };
 
   return (
     <div className="flex flex-row space-x-2 items-center" onClick={toggle}>
-      <div className={styles.switch} data-ison={position}>
+      <div className={styles.switch} data-ison={isOn}>
         <motion.div
           className={styles.toggle}
           layout
@@ -40,9 +34,7 @@ const Toggle = ({ labelWhenOn, labelWhenOff, onChange }: Props) => {
           whileTap={{ scale: 0.9 }}
         />
       </div>
-      <p className="text-lg">
-        {position === TogglePosition.ON ? `${labelWhenOn}` : `${labelWhenOff}`}
-      </p>
+      <p className="text-lg">{isOn ? `${labelWhenOn}` : `${labelWhenOff}`}</p>
     </div>
   );
 };

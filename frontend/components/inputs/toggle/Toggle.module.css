@@ -6,13 +6,13 @@
   @apply border-neutral-900;
 }
 
-.switch[data-ison="1"] {
+.switch[data-ison="true"] {
   @apply justify-end;
   @apply bg-purple-100;
   @apply border-purple-700;
 }
 
-.switch[data-ison="1"] > .toggle {
+.switch[data-ison="true"] > .toggle {
   @apply bg-purple-700;
 }
 

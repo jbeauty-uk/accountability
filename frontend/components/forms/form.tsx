@@ -8,7 +8,7 @@ enum ButtonState {
 
 type Props = {
   buttonLabel: string;
-  onSubmit: () => Promise<any>;
+  onSubmit: () => Promise<any> | any;
   children: JSX.Element;
 };
 
