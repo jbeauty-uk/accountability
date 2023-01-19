@@ -1,0 +1,6 @@
+type Statement {
+    day: Int,
+    month: Int,
+    year: Int!,
+    receipts: [Receipt]
+}

@@ -1,8 +1,8 @@
 type Receipt {
-    id: ID,
-    createdAt: String,
-    createdBy: String,
-    date: Date,
+    id: ID!,
+    createdAt: String!,
+    createdBy: String!,
+    date: Date!,
     details: String,
-    amount: Int
+    amount: Int!
 }

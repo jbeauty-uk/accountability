@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Controller
-class MutationController extends ReceiptController {
+class ReceiptMutationController extends ReceiptController {
 
-  MutationController(ReceiptService receiptService) {
+  ReceiptMutationController(ReceiptService receiptService) {
     super(receiptService);
   }
 

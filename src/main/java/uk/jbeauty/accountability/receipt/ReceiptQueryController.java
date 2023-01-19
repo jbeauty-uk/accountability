@@ -9,9 +9,9 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Controller
-class QueryController extends ReceiptController {
+class ReceiptQueryController extends ReceiptController {
 
-  QueryController(ReceiptService receiptService) {
+  ReceiptQueryController(ReceiptService receiptService) {
     super(receiptService);
   }
 
