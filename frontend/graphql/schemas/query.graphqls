@@ -1,0 +1,11 @@
+scalar Long
+scalar Date
+
+type Query {
+    # Receipts
+    getReceipts: [Receipt]
+    getReceiptById(id: ID): Receipt
+
+    # Statements
+    getStatement(year: Int!, month: Int, day: Int): Statement
+}

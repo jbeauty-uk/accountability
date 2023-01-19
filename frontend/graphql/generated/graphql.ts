@@ -39,6 +39,7 @@ export type Query = {
   __typename?: 'Query';
   getReceiptById?: Maybe<Receipt>;
   getReceipts?: Maybe<Array<Maybe<Receipt>>>;
+  getStatement?: Maybe<Statement>;
 };
 
 
@@ -46,14 +47,29 @@ export type QueryGetReceiptByIdArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+
+export type QueryGetStatementArgs = {
+  day?: InputMaybe<Scalars['Int']>;
+  month?: InputMaybe<Scalars['Int']>;
+  year: Scalars['Int'];
+};
+
 export type Receipt = {
   __typename?: 'Receipt';
-  amount?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['String']>;
-  createdBy?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
+  amount: Scalars['Int'];
+  createdAt: Scalars['String'];
+  createdBy: Scalars['String'];
+  date: Scalars['Date'];
   details?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
+};
+
+export type Statement = {
+  __typename?: 'Statement';
+  day?: Maybe<Scalars['Int']>;
+  month?: Maybe<Scalars['Int']>;
+  receipts?: Maybe<Array<Maybe<Receipt>>>;
+  year: Scalars['Int'];
 };
 
 /** All built-in and custom scalars, mapped to their actual values */
@@ -89,6 +105,7 @@ export type Query = {
   __typename?: 'Query';
   getReceiptById?: Maybe<Receipt>;
   getReceipts?: Maybe<Array<Maybe<Receipt>>>;
+  getStatement?: Maybe<Statement>;
 };
 
 
@@ -96,14 +113,29 @@ export type QueryGetReceiptByIdArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+
+export type QueryGetStatementArgs = {
+  day?: InputMaybe<Scalars['Int']>;
+  month?: InputMaybe<Scalars['Int']>;
+  year: Scalars['Int'];
+};
+
 export type Receipt = {
   __typename?: 'Receipt';
-  amount?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['String']>;
-  createdBy?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
+  amount: Scalars['Int'];
+  createdAt: Scalars['String'];
+  createdBy: Scalars['String'];
+  date: Scalars['Date'];
   details?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
+};
+
+export type Statement = {
+  __typename?: 'Statement';
+  day?: Maybe<Scalars['Int']>;
+  month?: Maybe<Scalars['Int']>;
+  receipts?: Maybe<Array<Maybe<Receipt>>>;
+  year: Scalars['Int'];
 };
 
 
@@ -183,6 +215,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   Receipt: ResolverTypeWrapper<Receipt>;
+  Statement: ResolverTypeWrapper<Statement>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -196,6 +229,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Query: {};
   Receipt: Receipt;
+  Statement: Statement;
   Boolean: Scalars['Boolean'];
 };
 
@@ -215,15 +249,24 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getReceiptById?: Resolver<Maybe<ResolversTypes['Receipt']>, ParentType, ContextType, Partial<QueryGetReceiptByIdArgs>>;
   getReceipts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Receipt']>>>, ParentType, ContextType>;
+  getStatement?: Resolver<Maybe<ResolversTypes['Statement']>, ParentType, ContextType, RequireFields<QueryGetStatementArgs, 'year'>>;
 };
 
 export type ReceiptResolvers<ContextType = any, ParentType extends ResolversParentTypes['Receipt'] = ResolversParentTypes['Receipt']> = {
-  amount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  createdBy?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdBy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  date?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   details?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type StatementResolvers<ContextType = any, ParentType extends ResolversParentTypes['Statement'] = ResolversParentTypes['Statement']> = {
+  day?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  month?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  receipts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Receipt']>>>, ParentType, ContextType>;
+  year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -233,5 +276,6 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Receipt?: ReceiptResolvers<ContextType>;
+  Statement?: StatementResolvers<ContextType>;
 };
 
