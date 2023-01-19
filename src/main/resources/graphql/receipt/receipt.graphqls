@@ -1,29 +1,8 @@
-scalar Date
-
-type Query {
-    getReceipts: [Receipt]
-}
-
-type Mutation {
-    addReceipt(
-        type: ReceiptType!,
-        date: Date!,
-        details: String,
-        amount: Int!
-    ): Receipt
-}
-
 type Receipt {
     id: ID,
     createdAt: String,
     createdBy: String,
-    type: ReceiptType,
     date: Date,
     details: String,
     amount: Int
-}
-
-enum ReceiptType {
-    INCOME,
-    EXPENSE
 }

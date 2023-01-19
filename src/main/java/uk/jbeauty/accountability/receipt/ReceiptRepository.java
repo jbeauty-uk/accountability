@@ -1,10 +1,17 @@
 package uk.jbeauty.accountability.receipt;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-interface ReceiptRepository2 extends ReactiveCrudRepository<Receipt, Long> {
+import java.util.UUID;
 
+interface ReceiptRepository extends R2dbcRepository<Receipt, UUID> {
 
+  Mono<Receipt> findByIdAndCreatedBy(UUID id, String createdBy);
+
+  Flux<Receipt> findAllByCreatedByOrderByCreatedAtDesc(String createdBy);
+
+  Mono<Receipt> deleteByIdAndCreatedBy(UUID id, String createdBy);
 
 }

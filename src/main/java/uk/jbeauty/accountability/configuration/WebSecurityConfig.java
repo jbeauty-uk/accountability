@@ -12,6 +12,7 @@ class WebSecurityConfig {
   SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
     return http
         .authorizeExchange()
+        .pathMatchers("/graphiql").permitAll()
         .anyExchange().authenticated()
         .and()
         .csrf().disable()

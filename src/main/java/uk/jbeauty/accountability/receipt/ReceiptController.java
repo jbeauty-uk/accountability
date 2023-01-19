@@ -1,6 +1,4 @@
-package uk.jbeauty.accountability.receipt.datafetchers;
-
-import uk.jbeauty.accountability.receipt.ReceiptService;
+package uk.jbeauty.accountability.receipt;
 
 abstract class ReceiptController {
 

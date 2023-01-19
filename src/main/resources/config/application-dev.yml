@@ -17,3 +17,11 @@ spring:
   graphql:
     graphiql:
       enabled: true
+
+oauth2:
+  mock: true
+
+logging:
+  level:
+    io.r2dbc.postgresql.QUERY: DEBUG
+    io.r2dbc.postgresql.PARAMETER: DEBUG

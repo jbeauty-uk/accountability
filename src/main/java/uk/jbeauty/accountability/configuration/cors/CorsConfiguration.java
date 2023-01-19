@@ -21,6 +21,7 @@ class CorsConfiguration {
     configuration.setAllowedMethods(configurationProperties.allowedMethods());
     configuration.setAllowedHeaders(configurationProperties.allowedHeaders());
     configuration.setMaxAge(configurationProperties.maxAge());
+    configuration.setAllowCredentials(true);
 
     var source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration(configurationProperties.path(), configuration);

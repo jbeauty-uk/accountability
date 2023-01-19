@@ -1,0 +1,7 @@
+scalar Long
+scalar Date
+
+type Query {
+    getReceipts: [Receipt]
+    getReceiptById(id: ID): Receipt
+}
