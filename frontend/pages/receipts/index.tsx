@@ -11,11 +11,11 @@ const ReceiptPage = () => {
     <>
       <h1 className="text-2xl">Receipts</h1>
       <div>
+        <AddReceiptButton onClick={toggleNewReceiptForm} />
         <div>
           <MonthPickerCarousel />
           <ReceiptsOverview />
         </div>
-        <AddReceiptButton onClick={toggleNewReceiptForm} />
         <AnimatePresence>
           {showNewReceiptForm && (
             <AddReceiptForm onClose={toggleNewReceiptForm} />

@@ -6,18 +6,7 @@ type Props = {
 };
 
 const AddReceiptButton = ({ onClick }: Props) => (
-  <motion.div
-    whileTap={{
-      scale: 0.9,
-    }}
-    whileHover={{
-      scale: 1.1,
-    }}
-    className="absolute bottom-6 right-6"
-    onClick={onClick}
-  >
-    <PlusCircleIcon className="h-16 w-16 text-purple-600" />
-  </motion.div>
+  <motion.button onClick={onClick}>Add a new receipt</motion.button>
 );
 
 export default AddReceiptButton;
