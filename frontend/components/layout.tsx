@@ -10,7 +10,7 @@ type LayoutProps = {
 };
 
 const Layout = (props: LayoutProps) => {
-  const { status, data: session } = useSession();
+  const { status, data: session } = useSession({ required: true });
 
   useEffect(() => {
     if (session?.error === "RefreshAccessTokenError") {
