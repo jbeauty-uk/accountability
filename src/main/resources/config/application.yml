@@ -22,3 +22,6 @@ google:
   endpoints:
     user-info: https://www.googleapis.com/oauth2/v3/userinfo
     token-info: https://www.googleapis.com/oauth2/v3/tokeninfo
+
+oauth2:
+  mock: false

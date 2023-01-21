@@ -27,11 +27,13 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.accountability.entrypoints=https
-      - traefik.http.routers.accountability.rule=Host(`api.jbeauty.uk`)
-      - traefik.http.services.accountability.loadbalancer.server.port=8080
+      - traefik.http.routers.accountability.rule=Host(`api.jbeauty.uk`) && Path(`/accountability`)
       - traefik.http.routers.accountability.tls.certresolver=lets-encrypt
+      - traefik.http.services.accountability.loadbalancer.server.port=8080
       - traefik.http.middlewares.accountability.headers.accesscontrolalloworiginlist=https://accountability.jbeauty.uk
-      - traefik.http.middlewares.accountability.headers.accesscontrolallowmethods=GET,POST,PUT,DELETE
+      - traefik.http.middlewares.accountability.headers.accesscontrolallowmethods=GET,POST
+      - traefik.http.middlewares.accountability.stripprefix.prefixes=/accountability
+      - traefik.http.middlewares.accountability.stripprefix.forceslash=false
 
 volumes:
   postgres_data:

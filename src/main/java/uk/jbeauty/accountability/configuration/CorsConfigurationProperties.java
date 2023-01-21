@@ -1,4 +1,4 @@
-package uk.jbeauty.accountability.configuration.cors;
+package uk.jbeauty.accountability.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

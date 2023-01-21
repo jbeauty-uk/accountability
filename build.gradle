@@ -1,6 +1,6 @@
 plugins {
   id 'idea'
-  id 'org.springframework.boot' version '2.7.6'
+  id 'org.springframework.boot' version '2.7.8'
   id 'io.spring.dependency-management' version '1.0.12.RELEASE'
   id 'java'
 }
@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-
 
   // Spring
   implementation 'org.springframework.boot:spring-boot-starter-webflux'
