@@ -10,15 +10,11 @@ interface StatementProps {
 }
 
 const Statement = ({ to, from }: StatementProps) => {
-  const { data, refetch } = useStatements(to, from);
+  const { data } = useStatements(to, from);
 
   const groupedReceipts = Object.entries(
     groupBy(data?.getStatementInRange.receipts, "date")
   );
-
-  useEffect(() => {
-    refetch({ to, from });
-  }, [to, from, refetch]);
 
   return (
     <div className="flex flex-col space-y-2">
