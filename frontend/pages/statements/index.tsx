@@ -1,9 +1,8 @@
-import { motion } from "framer-motion";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import Select from "../../components/inputs/Select";
+import Statement from "../../components/statements/statement";
 import { useStatements } from "../../lib/statements/hooks";
-import { formatAmount } from "../../lib/utils";
 
 const now = DateTime.now();
 
@@ -31,21 +30,9 @@ const ViewOptions = [
 const StatementPage = () => {
   const [selectedView, setSelectedView] = useState(0);
 
-  const { data, refetch } = useStatements(
-    ViewOptions[selectedView].to,
-    ViewOptions[selectedView].from
-  );
-
   const updateSelectedView = (value: string) => {
     setSelectedView(ViewOptions.map((e) => e.value).indexOf(value));
   };
-
-  useEffect(() => {
-    refetch({
-      to: ViewOptions[selectedView].to,
-      from: ViewOptions[selectedView].from,
-    });
-  }, [selectedView, refetch]);
 
   return (
     <>
@@ -61,16 +48,10 @@ const StatementPage = () => {
           onChange={updateSelectedView}
         />
       </div>
-      {data?.getStatementInRange.receipts.length ? (
-        data?.getStatementInRange.receipts.map(({ id, date, amount }) => (
-          <div className="flex flex-row justify-between" key={id}>
-            <p>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_MED)}</p>
-            <p>{formatAmount(amount)}</p>
-          </div>
-        ))
-      ) : (
-        <p>There is nothing to show here</p>
-      )}
+      <Statement
+        to={ViewOptions[selectedView].to}
+        from={ViewOptions[selectedView].from}
+      />
     </>
   );
 };

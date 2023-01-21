@@ -7,6 +7,7 @@ export const GET_STATEMENT_IN_RANGE = graphql(/* GraphQL */ `
         id
         date
         amount
+        details
       }
     }
   }
