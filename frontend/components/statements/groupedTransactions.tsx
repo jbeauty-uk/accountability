@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { groupBy } from "lodash";
 import { DateTime } from "luxon";
 import { GetStatementInRangeQuery } from "../../lib/graphql/generated/graphql";
@@ -12,43 +13,42 @@ const GroupedTransactions = ({ transactions }: Props) => {
 
   return (
     <div className="flex flex-col space-y-2">
-      {groupedTransactions.map(([date, transactions]) => (
-        <Group
-          key={date}
-          name={DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}
-        >
-          {transactions.map(({ id, amount, details }) => (
-            <div key={id} className="flex flex-row space-x-4 justify-between">
-              <p
-                className={`w-1/4 text-right ${
-                  amount > 0 && "text-purple-600"
-                }`}
-              >
-                {formatAmount(amount)}
-              </p>
-              <p
-                className={`w-3/4 text-left ${!details && "text-neutral-300"}`}
-              >
-                {details || "No details provided"}
-              </p>
-            </div>
-          ))}
-        </Group>
-      ))}
+      <AnimatePresence mode="popLayout">
+        {groupedTransactions.map(([date, transactions]) => (
+          <motion.div
+            key={date}
+            layout
+            className="flex flex-col space-y-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <p className="text-lg font-semibold">
+              {DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}
+            </p>
+            {transactions.map(({ id, amount, details }) => (
+              <div key={id} className="flex flex-row space-x-4 justify-between">
+                <p
+                  className={`w-1/4 text-right ${
+                    amount > 0 && "text-purple-600"
+                  }`}
+                >
+                  {formatAmount(amount)}
+                </p>
+                <p
+                  className={`w-3/4 text-left ${
+                    !details && "text-neutral-300"
+                  }`}
+                >
+                  {details || "No details provided"}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
-
-interface GroupProps {
-  name: string;
-  children: React.ReactNode;
-}
-
-const Group = ({ name, children }: GroupProps) => (
-  <div className="flex flex-col space-y-2">
-    <p className="text-lg font-semibold">{name}</p>
-    {children}
-  </div>
-);
 
 export default GroupedTransactions;

@@ -59,7 +59,7 @@ const Navigation = ({ top, cycleOpen }: Props) => {
       exit={"closed"}
       initial={"closed"}
       animate={"open"}
-      className="bg-neutral-900 absolute left-0 right-0"
+      className="bg-neutral-900 absolute left-0 right-0 z-50"
       style={{ top }}
     >
       <div className="flex flex-col items-end space-y-6 text-xl px-6 py-12">
