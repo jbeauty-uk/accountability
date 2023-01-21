@@ -1,15 +1,14 @@
-package uk.jbeauty.accountability.receipt;
+package uk.jbeauty.accountability.transactions;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.annotation.processing.Generated;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Table(name = "receipts")
-public class Receipt {
+@Table(name = "transactions")
+public class Transaction {
 
   @Id
   private UUID id;

@@ -4,7 +4,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import uk.jbeauty.accountability.receipt.ReceiptService;
+import uk.jbeauty.accountability.transactions.TransactionService;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -13,14 +13,14 @@ import java.util.Objects;
 @Service
 class StatementService {
 
-  private final ReceiptService receiptService;
+  private final TransactionService transactionService;
 
-  StatementService(ReceiptService receiptService) {
-    this.receiptService = receiptService;
+  StatementService(TransactionService transactionService) {
+    this.transactionService = transactionService;
   }
 
   Mono<Statement> getStatementInRange(LocalDate to, LocalDate from) {
-    return receiptService.findAllBetweenDates(to, from)
+    return transactionService.findAllBetweenDates(to, from)
         .collectList()
         .map(Statement::new);
   }

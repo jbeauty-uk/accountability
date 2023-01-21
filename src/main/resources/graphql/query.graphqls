@@ -2,8 +2,8 @@ scalar Long
 scalar Date
 
 type Query {
-    # Receipts
-    getReceiptById(id: ID): Receipt
+    # Transaction
+    getTransactionById(id: ID): Transaction
 
     # Statements
     getStatement(year: Int!, month: Int, day: Int): Statement!

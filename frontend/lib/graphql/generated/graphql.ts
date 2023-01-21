@@ -20,34 +20,29 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addReceipt: Receipt;
-  deleteReceipt?: Maybe<Receipt>;
+  addTransaction: Transaction;
+  deleteTransaction?: Maybe<Transaction>;
 };
 
 
-export type MutationAddReceiptArgs = {
+export type MutationAddTransactionArgs = {
   amount: Scalars['Int'];
   date: Scalars['Date'];
   details?: InputMaybe<Scalars['String']>;
 };
 
 
-export type MutationDeleteReceiptArgs = {
+export type MutationDeleteTransactionArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  /**  Receipts */
-  getReceiptById?: Maybe<Receipt>;
   /**  Statements */
   getStatement: Statement;
   getStatementInRange: Statement;
-};
-
-
-export type QueryGetReceiptByIdArgs = {
-  id?: InputMaybe<Scalars['ID']>;
+  /**  Transaction */
+  getTransactionById?: Maybe<Transaction>;
 };
 
 
@@ -63,8 +58,18 @@ export type QueryGetStatementInRangeArgs = {
   to: Scalars['Date'];
 };
 
-export type Receipt = {
-  __typename?: 'Receipt';
+
+export type QueryGetTransactionByIdArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export type Statement = {
+  __typename?: 'Statement';
+  transactions: Array<Transaction>;
+};
+
+export type Transaction = {
+  __typename?: 'Transaction';
   amount: Scalars['Int'];
   createdAt: Scalars['String'];
   createdBy: Scalars['String'];
@@ -73,18 +78,23 @@ export type Receipt = {
   id: Scalars['ID'];
 };
 
-export type Statement = {
-  __typename?: 'Statement';
-  receipts: Array<Receipt>;
-};
-
 export type GetStatementInRangeQueryVariables = Exact<{
   to: Scalars['Date'];
   from: Scalars['Date'];
 }>;
 
 
-export type GetStatementInRangeQuery = { __typename?: 'Query', getStatementInRange: { __typename?: 'Statement', receipts: Array<{ __typename?: 'Receipt', id: string, date: any, amount: number, details?: string | null }> } };
+export type GetStatementInRangeQuery = { __typename?: 'Query', getStatementInRange: { __typename?: 'Statement', transactions: Array<{ __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null }> } };
+
+export type AddTransactionMutationVariables = Exact<{
+  date: Scalars['Date'];
+  details?: InputMaybe<Scalars['String']>;
+  amount: Scalars['Int'];
+}>;
 
 
-export const GetStatementInRangeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getStatementInRange"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"to"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getStatementInRange"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"to"},"value":{"kind":"Variable","name":{"kind":"Name","value":"to"}}},{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"receipts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"details"}}]}}]}}]}}]} as unknown as DocumentNode<GetStatementInRangeQuery, GetStatementInRangeQueryVariables>;
+export type AddTransactionMutation = { __typename?: 'Mutation', addTransaction: { __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null } };
+
+
+export const GetStatementInRangeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getStatementInRange"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"to"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getStatementInRange"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"to"},"value":{"kind":"Variable","name":{"kind":"Name","value":"to"}}},{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"details"}}]}}]}}]}}]} as unknown as DocumentNode<GetStatementInRangeQuery, GetStatementInRangeQueryVariables>;
+export const AddTransactionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addTransaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"date"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"details"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"amount"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addTransaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"date"}}},{"kind":"Argument","name":{"kind":"Name","value":"details"},"value":{"kind":"Variable","name":{"kind":"Name","value":"details"}}},{"kind":"Argument","name":{"kind":"Name","value":"amount"},"value":{"kind":"Variable","name":{"kind":"Name","value":"amount"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"details"}}]}}]}}]} as unknown as DocumentNode<AddTransactionMutation, AddTransactionMutationVariables>;

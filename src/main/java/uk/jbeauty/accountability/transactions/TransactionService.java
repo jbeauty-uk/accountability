@@ -1,4 +1,4 @@
-package uk.jbeauty.accountability.receipt;
+package uk.jbeauty.accountability.transactions;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -12,42 +12,42 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
-public class ReceiptService {
+public class TransactionService {
 
-  private final ReceiptRepository repository;
+  private final TransactionRepository repository;
   private final Clock clock;
 
-  ReceiptService(ReceiptRepository repository, Clock clock) {
+  TransactionService(TransactionRepository repository, Clock clock) {
     this.repository = repository;
     this.clock = clock;
   }
 
-  Mono<Receipt> findById(UUID id) {
+  Mono<Transaction> findById(UUID id) {
     return SecurityUtils.getPrincipal()
         .map(AbstractAuthenticationToken::getName)
         .flatMap(username -> repository.findByIdAndCreatedBy(id, username));
   }
 
-  public Flux<Receipt> findAllBetweenDates(LocalDate to, LocalDate from) {
+  public Flux<Transaction> findAllBetweenDates(LocalDate to, LocalDate from) {
     return SecurityUtils.getPrincipal()
         .map(AbstractAuthenticationToken::getName)
-        .flatMapMany(createdBy -> repository.findAllByCreatedByAndDateBetweenOrderByDateAsc(createdBy, from, to));
+        .flatMapMany(createdBy -> repository.findAllByCreatedByAndDateBetweenOrderByDateDescCreatedAtDesc(createdBy, from, to));
   }
 
   @Transactional
-  public Mono<Receipt> addReceipt(Receipt receipt) {
+  public Mono<Transaction> addTransaction(Transaction transaction) {
     return SecurityUtils.getPrincipal()
         .map(AbstractAuthenticationToken::getName)
         .map(username -> {
-          receipt.setCreatedBy(username);
-          receipt.setCreatedAt(clock.instant());
-          return receipt;
+          transaction.setCreatedBy(username);
+          transaction.setCreatedAt(clock.instant());
+          return transaction;
         })
         .flatMap(repository::save);
   }
 
   @Transactional
-  public Mono<Receipt> deleteReceipt(UUID id) {
+  public Mono<Transaction> deleteTransaction(UUID id) {
     return SecurityUtils.getPrincipal()
         .map(AbstractAuthenticationToken::getName)
         .flatMap(username -> repository.deleteByIdAndCreatedBy(id, username));

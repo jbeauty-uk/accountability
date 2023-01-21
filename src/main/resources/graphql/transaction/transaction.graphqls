@@ -1,4 +1,4 @@
-type Receipt {
+type Transaction {
     id: ID!,
     createdAt: String!,
     createdBy: String!,
