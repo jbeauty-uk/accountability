@@ -1,0 +1,27 @@
+spring:
+  security:
+    cors:
+      allowed-origins:
+        - http://localhost:3000
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+  flyway:
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: postgres
+    password: postgres
+
+  graphql:
+    graphiql:
+      enabled: true
+
+oauth2:
+  mock: true
+
+logging:
+  level:
+    io.r2dbc.postgresql.QUERY: DEBUG
+    io.r2dbc.postgresql.PARAMETER: DEBUG

@@ -1,0 +1,24 @@
+spring:
+  security:
+    cors:
+      path: /**
+      max-age: 3600
+      allowed-methods:
+        - GET
+        - POST
+      allowed-headers:
+        - Authorization
+        - Content-Type
+  r2dbc:
+    url: ${spring.r2dbc.url}
+    username: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+  flyway:
+    url: ${spring.flyway.url}
+    user: ${spring.flyway.user}
+    password: ${spring.flyway.password}
+google:
+  client-id: ${GOOGLE_CLIENT_ID}
+  endpoints:
+    user-info: https://www.googleapis.com/oauth2/v3/userinfo
+    token-info: https://www.googleapis.com/oauth2/v3/tokeninfo

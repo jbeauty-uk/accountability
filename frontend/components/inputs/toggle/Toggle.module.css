@@ -1,0 +1,23 @@
+.switch {
+  @apply h-8 w-14 p-0.5;
+  @apply flex justify-start items-center;
+  @apply border-2 rounded-full;
+  @apply bg-neutral-100;
+  @apply border-neutral-900;
+}
+
+.switch[data-ison="true"] {
+  @apply justify-end;
+  @apply bg-purple-100;
+  @apply border-purple-700;
+}
+
+.switch[data-ison="true"] > .toggle {
+  @apply bg-purple-700;
+}
+
+.toggle {
+  @apply aspect-square h-full;
+  @apply rounded-full;
+  @apply bg-neutral-900;
+}

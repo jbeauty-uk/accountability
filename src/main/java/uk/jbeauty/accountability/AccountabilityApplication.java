@@ -7,6 +7,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
+@EnableR2dbcRepositories
 public class AccountabilityApplication {
 
   public static void main(String[] args) {

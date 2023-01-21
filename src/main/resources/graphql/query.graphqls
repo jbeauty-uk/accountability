@@ -1,0 +1,11 @@
+scalar Long
+scalar Date
+
+type Query {
+    # Transaction
+    getTransactionById(id: ID): Transaction
+
+    # Statements
+    getStatement(year: Int!, month: Int, day: Int): Statement!
+    getStatementInRange(to: Date!, from: Date!): Statement!
+}
