@@ -1,9 +1,21 @@
 CREATE TABLE IF NOT EXISTS receipts
 (
-    id         UUID PRIMARY KEY   DEFAULT gen_random_uuid(),
+    id BIGSERIAL PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS receipt_details
+(
+    id         BIGSERIAL PRIMARY KEY,
     created_at TIMESTAMP NOT NULL DEFAULT now(),
-    created_by TEXT      NOT NULL,
+    deleted_at TIMESTAMP,
+    receipt_id BIGINT REFERENCES receipts (id),
+    created_by VARCHAR   NOT NULL,
+    type       VARCHAR   NOT NULL,
     date       DATE      NOT NULL,
-    details    TEXT,
+    details    VARCHAR,
     amount     BIGINT    NOT NULL
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS receipt_details_uidx
+    ON receipt_details (receipt_id, deleted_at)
+    WHERE deleted_at IS NULL;
