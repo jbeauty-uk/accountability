@@ -29,24 +29,28 @@ const Header = () => {
             {SITE_BRANDING}
           </Link>
         </motion.div>
-        <motion.div
-          variants={{
-            open: { rotate: 180 },
-            closed: { rotate: 0 },
-          }}
-          transition={{ duration: 0.2 }}
-          style={{ originY: 0.5 }}
+        <div
+          className="h-10 flex flex-col justify-center items-center aspect-square border-neutral-600 border-2 rounded-md"
           onClick={() => cycleOpen()}
         >
-          <svg
-            width="15"
-            height="15"
-            className="fill-neutral-50"
-            viewBox="0 0 20 20"
+          <motion.div
+            variants={{
+              open: { rotate: 180 },
+              closed: { rotate: 0 },
+            }}
+            transition={{ duration: 0.2 }}
+            style={{ originY: 0.5 }}
           >
-            <path d="M0 7 L 20 7 L 10 16" />
-          </svg>
-        </motion.div>
+            <svg
+              width="15"
+              height="15"
+              className="fill-neutral-50"
+              viewBox="0 0 20 20"
+            >
+              <path d="M0 7 L 20 7 L 10 16" />
+            </svg>
+          </motion.div>
+        </div>
       </div>
       <AnimatePresence>
         {isOpen && <Navigation cycleOpen={cycleOpen} />}

@@ -19,15 +19,18 @@ class StatementService {
     this.receiptService = receiptService;
   }
 
+  Mono<Statement> getStatementInRange(LocalDate to, LocalDate from) {
+    return receiptService.findAllBetweenDates(to, from)
+        .collectList()
+        .map(Statement::new);
+  }
+
   Mono<Statement> getStatement(@NonNull Integer year,
                                @Nullable Integer month,
                                @Nullable Integer day) {
     var dateRange = getDateRange(year, month, day);
 
-    return receiptService
-        .findAllBetweenDates(dateRange.from(), dateRange.to())
-        .collectList()
-        .map(receipts -> new Statement(year, month, day, receipts));
+    return getStatementInRange(dateRange.to(), dateRange.from());
   }
 
   DateRange getDateRange(@NonNull Integer year,

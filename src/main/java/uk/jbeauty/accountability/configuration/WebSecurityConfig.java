@@ -1,5 +1,6 @@
 package uk.jbeauty.accountability.configuration;
 
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -12,7 +13,7 @@ class WebSecurityConfig {
   SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
     return http
         .authorizeExchange()
-        .pathMatchers("/graphiql").permitAll()
+        .pathMatchers("/graphiql", "/graphql").permitAll()
         .anyExchange().authenticated()
         .and()
         .csrf().disable()

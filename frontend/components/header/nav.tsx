@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const navigationVariants: Variants = {
-  open: { height: "auto" },
+  open: { height: "auto", transition: { staggerChildren: 0.075 } },
   closed: { height: 0 },
 };
 
@@ -23,6 +23,10 @@ const routes: Route[] = [
     displayText: "Receipts",
     href: "/receipts",
   },
+  {
+    displayText: "Statements",
+    href: "/statements",
+  },
 ];
 
 const routeVariants: Variants = {
@@ -31,7 +35,11 @@ const routeVariants: Variants = {
     y: 0,
     transition: { type: "spring", stiffness: 300, damping: 24 },
   },
-  closed: { opacity: 0, y: -20, transition: { duration: 0.2 } },
+  closed: {
+    opacity: 0,
+    y: -20,
+    transition: { duration: 0.2 },
+  },
 };
 
 type Props = {

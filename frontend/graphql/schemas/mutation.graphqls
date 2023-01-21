@@ -1,4 +1,0 @@
-type Mutation {
-    addReceipt(date: Date!, details: String, amount: Int!): Receipt!
-    deleteReceipt(id: ID): Receipt
-}

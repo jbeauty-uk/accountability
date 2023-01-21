@@ -1,8 +1,6 @@
 import { AnimatePresence, useCycle } from "framer-motion";
 import AddReceiptButton from "../../components/receipts/addReceiptButton";
 import AddReceiptForm from "../../components/receipts/addReceiptForm";
-import ReceiptsOverview from "../../components/receipts/overview";
-import MonthPickerCarousel from "../../components/receipts/overview/monthPickerCarousel";
 
 const ReceiptPage = () => {
   const [showNewReceiptForm, toggleNewReceiptForm] = useCycle(false, true);
@@ -12,10 +10,6 @@ const ReceiptPage = () => {
       <h1 className="text-2xl">Receipts</h1>
       <div>
         <AddReceiptButton onClick={toggleNewReceiptForm} />
-        <div>
-          <MonthPickerCarousel />
-          <ReceiptsOverview />
-        </div>
         <AnimatePresence>
           {showNewReceiptForm && (
             <AddReceiptForm onClose={toggleNewReceiptForm} />

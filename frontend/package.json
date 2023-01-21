@@ -26,6 +26,7 @@
     "@graphql-codegen/cli": "^2.15.0",
     "@graphql-codegen/client-preset": "^1.2.1",
     "@graphql-codegen/typescript": "^2.8.7",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@graphql-codegen/typescript-resolvers": "^2.7.12",
     "@tailwindcss/forms": "^0.5.3",
     "@types/luxon": "^3.1.0",

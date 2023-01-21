@@ -22,19 +22,13 @@ public class ReceiptService {
     this.clock = clock;
   }
 
-  Flux<Receipt> findAll() {
-    return SecurityUtils.getPrincipal()
-        .map(AbstractAuthenticationToken::getName)
-        .flatMapMany(repository::findAllByCreatedByOrderByCreatedAtDesc);
-  }
-
   Mono<Receipt> findById(UUID id) {
     return SecurityUtils.getPrincipal()
         .map(AbstractAuthenticationToken::getName)
         .flatMap(username -> repository.findByIdAndCreatedBy(id, username));
   }
 
-  public Flux<Receipt> findAllBetweenDates(LocalDate from, LocalDate to) {
+  public Flux<Receipt> findAllBetweenDates(LocalDate to, LocalDate from) {
     return SecurityUtils.getPrincipal()
         .map(AbstractAuthenticationToken::getName)
         .flatMapMany(createdBy -> repository.findAllByCreatedByAndDateBetweenOrderByDateAsc(createdBy, from, to));
