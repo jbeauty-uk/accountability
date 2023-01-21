@@ -5,30 +5,30 @@ import Select from "../../components/inputs/Select";
 import { useStatements } from "../../lib/statements/hooks";
 import { formatAmount } from "../../lib/utils";
 
+const now = DateTime.now();
+
+const ViewOptions = [
+  {
+    value: "today",
+    label: "Today",
+    from: now.toISODate(),
+    to: now.plus({ days: 1 }).toISODate(),
+  },
+  {
+    value: "this-week",
+    label: "This week",
+    from: now.startOf("week").toISODate(),
+    to: now.startOf("week").plus({ week: 1 }).toISODate(),
+  },
+  {
+    value: "this-month",
+    label: "This month",
+    from: now.startOf("month").toISODate(),
+    to: now.startOf("week").plus({ month: 1 }).toISODate(),
+  },
+];
+
 const StatementPage = () => {
-  const now = DateTime.now();
-
-  const ViewOptions = [
-    {
-      value: "today",
-      label: "Today",
-      from: now.toISODate(),
-      to: now.plus({ days: 1 }).toISODate(),
-    },
-    {
-      value: "this-week",
-      label: "This week",
-      from: now.startOf("week").toISODate(),
-      to: now.startOf("week").plus({ week: 1 }).toISODate(),
-    },
-    {
-      value: "this-month",
-      label: "This month",
-      from: now.startOf("month").toISODate(),
-      to: now.startOf("week").plus({ month: 1 }).toISODate(),
-    },
-  ];
-
   const [selectedView, setSelectedView] = useState(0);
 
   const { data, refetch } = useStatements(
@@ -45,7 +45,7 @@ const StatementPage = () => {
       to: ViewOptions[selectedView].to,
       from: ViewOptions[selectedView].from,
     });
-  }, [selectedView]);
+  }, [selectedView, refetch]);
 
   return (
     <>
@@ -69,7 +69,7 @@ const StatementPage = () => {
           </div>
         ))
       ) : (
-        <p>There's nothing to show here</p>
+        <p>There is nothing to show here</p>
       )}
     </>
   );
