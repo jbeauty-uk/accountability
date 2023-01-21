@@ -1,6 +1,5 @@
 import { groupBy } from "lodash";
 import { DateTime } from "luxon";
-import { useEffect } from "react";
 import { useStatements } from "../../lib/statements/hooks";
 import { formatAmount } from "../../lib/utils";
 
