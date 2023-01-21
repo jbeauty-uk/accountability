@@ -20,7 +20,7 @@ const Layout = (props: LayoutProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col min-h-screen relative">
+      <div className="flex flex-col min-h-screen">
         <Header />
         <AnimatePresence mode="wait">
           {status === "loading" && <LoadingBar />}
@@ -33,9 +33,7 @@ const Layout = (props: LayoutProps) => {
 };
 
 const PageContent = ({ children }: LayoutProps) => (
-  <div className="mt-20 relative px-6 py-6 flex flex-col space-y-6">
-    {children}
-  </div>
+  <div className="px-6 py-6 flex flex-col space-y-6">{children}</div>
 );
 
 export default Layout;

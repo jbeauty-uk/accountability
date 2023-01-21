@@ -2,15 +2,25 @@ import { AnimatePresence, motion, useCycle } from "framer-motion";
 import { SITE_BRANDING } from "../../constants";
 import Navigation from "./nav";
 import Link from "next/link";
-import { useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { readFile } from "fs";
 
 const Header = () => {
   const [isOpen, cycleOpen] = useCycle(false, true);
+  const ref = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    setHeight(ref.current.clientHeight);
+  }, [ref]);
+
   const siteBranding = useRef(null);
 
   return (
     <motion.div
-      className="bg-neutral-900 text-stone-50 absolute top-0 left-0 right-0 z-50"
+      ref={ref}
+      className="bg-neutral-900 text-stone-50"
       initial="closed"
       animate={isOpen ? "open" : "closed"}
       transition={{
@@ -53,7 +63,7 @@ const Header = () => {
         </div>
       </div>
       <AnimatePresence>
-        {isOpen && <Navigation cycleOpen={cycleOpen} />}
+        {isOpen && <Navigation top={height} cycleOpen={cycleOpen} />}
       </AnimatePresence>
     </motion.div>
   );

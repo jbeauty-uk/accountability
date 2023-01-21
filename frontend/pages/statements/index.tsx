@@ -49,7 +49,7 @@ const StatementPage = () => {
 
   return (
     <>
-      <h1 className="text-2xl">Statements</h1>
+      <h1 className="text-2xl my-1">Statements</h1>
       <div className="my-1">
         <Select
           label="Showing statement for the following period:"
