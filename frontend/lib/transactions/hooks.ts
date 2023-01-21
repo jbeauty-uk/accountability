@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { AddTransactionMutation } from "../graphql/generated/graphql";
-import { ADD_TRANSACTION } from "../graphql/queries";
+import { ADD_TRANSACTION, GET_STATEMENT_IN_RANGE } from "../graphql/queries";
+import { ViewOptions } from "../statements/viewOptions";
 
 interface UseAddTransactionProps {
   isIncome: boolean;
@@ -25,6 +26,20 @@ export function useAddTransaction({
         details,
         amount: parsedAmount,
       },
+      refetchQueries: [
+        {
+          query: GET_STATEMENT_IN_RANGE,
+          variables: { to: ViewOptions[0].to, from: ViewOptions[0].from },
+        },
+        {
+          query: GET_STATEMENT_IN_RANGE,
+          variables: { to: ViewOptions[1].to, from: ViewOptions[1].from },
+        },
+        {
+          query: GET_STATEMENT_IN_RANGE,
+          variables: { to: ViewOptions[2].to, from: ViewOptions[2].from },
+        },
+      ],
     }
   );
 
