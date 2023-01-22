@@ -1,0 +1,7 @@
+type TransactionAnalytics {
+    detail: String!,
+    count: Int!,
+    min: Int!,
+    average: Int!
+    max: Int!
+}
