@@ -17,10 +17,8 @@ class WebSecurityConfig {
   }
 
   @Bean
-  SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-    return http
-        .authorizeExchange()
-        .anyExchange().authenticated()
+  SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity.AuthorizeExchangeSpec authorizeExchangeSpec) {
+    return authorizeExchangeSpec
         .and()
         .csrf().disable()
         .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::opaqueToken)

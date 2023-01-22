@@ -13,6 +13,18 @@ export const GET_STATEMENT_IN_RANGE = graphql(/* GraphQL */ `
   }
 `);
 
+export const GET_TRANSACTION_ANALYTICS_IN_RANGE = graphql(/* GraphQL */ `
+  query getTransactionAnalyticsInRange($to: Date!, $from: Date!) {
+    getTransactionAnalyticsInRange(to: $to, from: $from) {
+      detail
+      count
+      min
+      average
+      max
+    }
+  }
+`);
+
 export const ADD_TRANSACTION = graphql(/* GraphQL */ `
   mutation addTransaction($date: Date!, $details: String, $amount: Int!) {
     addTransaction(date: $date, details: $details, amount: $amount) {

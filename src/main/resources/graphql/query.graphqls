@@ -8,4 +8,7 @@ type Query {
     # Statements
     getStatement(year: Int!, month: Int, day: Int): Statement!
     getStatementInRange(to: Date!, from: Date!): Statement!
+
+    # Analytics
+    getTransactionAnalyticsInRange(to: Date!, from: Date!): [TransactionAnalytics!]!
 }
