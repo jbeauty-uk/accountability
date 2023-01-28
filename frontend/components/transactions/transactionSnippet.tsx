@@ -29,11 +29,14 @@ const TransactionSnippet = (props: Props) => {
 
   useEffect(() => {
     setIsUpdated(
-      date !== props.date ||
+      isIncome !== props.amount > 0 ||
+        date !== props.date ||
         details !== props.details ||
         amount !== Math.abs(props.amount)
     );
-  }, [props, date, details, amount]);
+  }, [props, isIncome, date, details, amount]);
+
+  console.log(isUpdated);
 
   const { updateTransaction } = useUpdateTransaction({
     id,
