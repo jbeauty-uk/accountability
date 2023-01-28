@@ -1,18 +1,11 @@
-import { useMutation } from "@apollo/client";
-import { AnimatePresence, motion, MotionConfig, useCycle } from "framer-motion";
+import { AnimatePresence, motion, useCycle } from "framer-motion";
 import { DateTime } from "luxon";
 import { useState } from "react";
-import { ADD_TRANSACTION } from "../../lib/graphql/queries";
 import { useAddTransaction } from "../../lib/transactions/hooks";
 import Form from "../forms/form";
 import Input, { InputType } from "../inputs/Input";
 import Textarea from "../inputs/Textarea";
 import Toggle from "../inputs/toggle";
-
-enum TransactionType {
-  EXPENSE = "expense",
-  INCOME = "income",
-}
 
 const dateFormat = "yyyy-MM-dd";
 
@@ -26,7 +19,7 @@ const icon = {
 };
 
 const AddTransactionForm = () => {
-  const [type, setType] = useState(TransactionType.EXPENSE);
+  const [isIncome, setIsIncome] = useState(false);
   const [date, setDate] = useState(DateTime.now().toFormat(dateFormat));
   const [details, setDetails] = useState("");
   const [amount, setAmount] = useState("");
@@ -34,7 +27,7 @@ const AddTransactionForm = () => {
   const [showSuccessBanner, cycleShowSuccessBanner] = useCycle(false, true);
 
   const { addTransaction, loading } = useAddTransaction({
-    isIncome: type === TransactionType.INCOME,
+    isIncome,
     amount: parseInt(amount),
     details,
     date,
@@ -102,9 +95,8 @@ const AddTransactionForm = () => {
             <Toggle
               labelWhenOn="Income"
               labelWhenOff="Expense"
-              onChange={(isOn) =>
-                setType(isOn ? TransactionType.INCOME : TransactionType.EXPENSE)
-              }
+              onChange={setIsIncome}
+              defaultState={isIncome}
             />
             <Input
               label="Date"

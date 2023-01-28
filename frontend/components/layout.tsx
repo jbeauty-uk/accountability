@@ -33,7 +33,9 @@ const Layout = (props: LayoutProps) => {
 };
 
 const PageContent = ({ children }: LayoutProps) => (
-  <div className="px-6 py-6 flex flex-col space-y-6">{children}</div>
+  <div className="px-6 py-6 flex flex-col space-y-6 overflow-x-hidden">
+    {children}
+  </div>
 );
 
 export default Layout;

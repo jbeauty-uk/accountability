@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { groupBy } from "lodash";
+import { groupBy, reduce } from "lodash";
 import { DateTime } from "luxon";
 import { GetStatementInRangeQuery } from "../../lib/graphql/generated/graphql";
 import { formatAmount } from "../../lib/utils";
+import TransactionSnippet from "../transactions/transactionSnippet";
 
 interface Props {
   transactions: GetStatementInRangeQuery["getStatementInRange"]["transactions"];
@@ -23,26 +24,24 @@ const GroupedTransactions = ({ transactions }: Props) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <p className="text-lg font-semibold">
-              {DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}
-            </p>
-            {transactions.map(({ id, amount, details }) => (
-              <div key={id} className="flex flex-row space-x-4 justify-between">
-                <p
-                  className={`w-1/4 text-right ${
-                    amount > 0 && "text-purple-600"
-                  }`}
-                >
-                  {formatAmount(amount)}
-                </p>
-                <p
-                  className={`w-3/4 text-left ${
-                    !details && "text-neutral-300"
-                  }`}
-                >
-                  {details || "No details provided"}
-                </p>
-              </div>
+            <div className="flex flex-row space-x-2 items-baseline">
+              <p className="text-lg font-semibold">
+                {DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}
+              </p>
+              <p className="text-sm">
+                (
+                {formatAmount(
+                  reduce(
+                    transactions,
+                    (total, { amount }) => (total += amount),
+                    0
+                  )
+                )}
+                )
+              </p>
+            </div>
+            {transactions.map((transaction) => (
+              <TransactionSnippet key={transaction.id} {...transaction} />
             ))}
           </motion.div>
         ))}

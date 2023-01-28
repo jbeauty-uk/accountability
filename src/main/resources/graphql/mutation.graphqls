@@ -1,4 +1,5 @@
 type Mutation {
     addTransaction(date: Date!, details: String, amount: Int!): Transaction!
-    deleteTransaction(id: ID): Transaction
+    updateTransaction(id: ID!, date: Date!, details: String, amount: Int!): Transaction!
+    deleteTransaction(id: ID!): Transaction!
 }
