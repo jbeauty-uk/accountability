@@ -36,8 +36,6 @@ const TransactionSnippet = (props: Props) => {
     );
   }, [props, isIncome, date, details, amount]);
 
-  console.log(isUpdated);
-
   const { updateTransaction } = useUpdateTransaction({
     id,
     isIncome,
