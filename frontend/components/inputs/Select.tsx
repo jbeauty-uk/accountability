@@ -5,14 +5,17 @@ interface Props {
   labelClass?: string;
   name: string;
   id: string;
-  options: Option[];
-  selected: Option["value"];
-  onChange: (i: Option["value"]) => void;
+  options: DateOption[];
+  additionalOptions?: DateOption[];
+  selected: DateOption["value"];
+  onChange: (option: { label: string; from: string; to: string }) => void;
 }
 
-interface Option {
+export interface DateOption {
   label: string;
   value: string;
+  from: string;
+  to: string;
 }
 
 const Select = ({
@@ -21,6 +24,7 @@ const Select = ({
   name,
   id,
   options,
+  additionalOptions,
   onChange,
   selected,
 }: Props) => {
@@ -33,14 +37,34 @@ const Select = ({
         name={name}
         id={id}
         className={styles["input-field"]}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={({ target }) => {
+          const selectedOption = target.selectedOptions[0];
+          const { from, to } = selectedOption.dataset;
+          const option = {
+            label: selectedOption.innerText,
+            from: from || "",
+            to: to || "",
+          };
+          onChange(option);
+        }}
         defaultValue={selected}
       >
-        {options.map(({ label, value }, index) => (
-          <option key={index} value={value}>
-            {label}
-          </option>
-        ))}
+        <optgroup label="Current">
+          {options.map(({ label, value, from, to }, index) => (
+            <option key={index} value={value} data-from={from} data-to={to}>
+              {label}
+            </option>
+          ))}
+        </optgroup>
+        {additionalOptions?.length && (
+          <optgroup label="Previous">
+            {additionalOptions.map(({ label, value, from, to }, index) => (
+              <option key={index} value={value} data-from={from} data-to={to}>
+                {label}
+              </option>
+            ))}
+          </optgroup>
+        )}
       </select>
     </label>
   );

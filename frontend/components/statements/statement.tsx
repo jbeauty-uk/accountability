@@ -6,10 +6,9 @@ import GroupedTransactions from "./groupedTransactions";
 interface Props {
   to: string;
   from: string;
-  name: string;
 }
 
-const Statement = ({ to, from, name }: Props) => {
+const Statement = ({ to, from }: Props) => {
   const { data } = useStatements(to, from);
 
   if (!data) return <p>Loading</p>;
@@ -19,14 +18,11 @@ const Statement = ({ to, from, name }: Props) => {
   } = data;
 
   const total = reduce(transactions, (sum, { amount }) => (sum += amount), 0);
-
   const groupedTransactions = Object.entries(groupBy(transactions, "date"));
 
   return groupedTransactions.length ? (
     <>
-      <h2>
-        The total for {name.toLocaleLowerCase()} is {formatAmount(total)}
-      </h2>
+      <p className="text-lg">Total: {formatAmount(total)}</p>
       <GroupedTransactions transactions={transactions} />
     </>
   ) : (

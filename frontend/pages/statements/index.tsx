@@ -1,14 +1,34 @@
+import { DateTime } from "luxon";
 import { useState } from "react";
 import Select from "../../components/inputs/Select";
 import Statement from "../../components/statements/statement";
 import { ViewOptions } from "../../lib/statements/viewOptions";
+import { useAvailableMonths } from "../../lib/transactions/utils";
+
+const now = DateTime.now();
 
 const StatementPage = () => {
-  const [selectedView, setSelectedView] = useState(0);
+  const [currentRange, setCurrentRange] = useState({
+    label: "Today",
+    from: now.startOf("day").toISODate(),
+    to: now.plus({ days: 1 }).toISODate(),
+  });
 
-  const updateSelectedView = (value: string) => {
-    setSelectedView(ViewOptions.map((e) => e.value).indexOf(value));
+  const { loading, availableMonths } = useAvailableMonths();
+
+  const updateSelectedView = ({
+    label,
+    from,
+    to,
+  }: {
+    label: string;
+    from: string;
+    to: string;
+  }) => {
+    setCurrentRange({ label, from, to });
   };
+
+  if (loading) return <p>Loading</p>;
 
   return (
     <>
@@ -17,18 +37,15 @@ const StatementPage = () => {
         <Select
           label="Showing statement for the following period:"
           labelClass="text-md"
-          id="statemen-view-options"
+          id="statement-view-options"
           name="statement-view-options"
           options={ViewOptions}
-          selected={ViewOptions[selectedView].value}
+          additionalOptions={availableMonths}
+          selected={ViewOptions[0].value}
           onChange={updateSelectedView}
         />
       </div>
-      <Statement
-        to={ViewOptions[selectedView].to}
-        from={ViewOptions[selectedView].from}
-        name={ViewOptions[selectedView].label}
-      />
+      <Statement to={currentRange.to} from={currentRange.from} />
     </>
   );
 };

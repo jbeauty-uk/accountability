@@ -1,8 +1,9 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { Transaction } from "../graphql/generated/graphql";
 import {
   ADD_TRANSACTION,
   GET_STATEMENT_IN_RANGE,
+  GET_TRANSACTION_RANGE,
   UPDATE_TRANSACTION,
 } from "../graphql/queries";
 import { ViewOptions } from "../statements/viewOptions";
@@ -104,4 +105,12 @@ export function useUpdateTransaction({
   if (error) throw error;
 
   return { loading, data, updateTransaction };
+}
+
+export function useTransactionRange() {
+  const { loading, error, data, refetch } = useQuery(GET_TRANSACTION_RANGE);
+
+  if (error) throw error;
+
+  return { loading, data, refetch };
 }
