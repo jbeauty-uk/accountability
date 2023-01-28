@@ -6,3 +6,8 @@ type Transaction {
     details: String,
     amount: Int!
 }
+
+type TransactionRange {
+    from: Date!,
+    to: Date!,
+}

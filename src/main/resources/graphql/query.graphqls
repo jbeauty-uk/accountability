@@ -4,6 +4,7 @@ scalar Date
 type Query {
     # Transaction
     getTransactionById(id: ID): Transaction
+    getTransactionRange: TransactionRange!
 
     # Statements
     getStatement(year: Int!, month: Int, day: Int): Statement!
