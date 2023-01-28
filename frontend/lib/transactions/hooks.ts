@@ -1,13 +1,17 @@
-import { useMutation } from "@apollo/client";
-import { AddTransactionMutation } from "../graphql/generated/graphql";
-import { ADD_TRANSACTION, GET_STATEMENT_IN_RANGE } from "../graphql/queries";
+import { gql, useMutation } from "@apollo/client";
+import { Transaction } from "../graphql/generated/graphql";
+import {
+  ADD_TRANSACTION,
+  GET_STATEMENT_IN_RANGE,
+  UPDATE_TRANSACTION,
+} from "../graphql/queries";
 import { ViewOptions } from "../statements/viewOptions";
 
 interface UseAddTransactionProps {
   isIncome: boolean;
-  date: AddTransactionMutation["addTransaction"]["date"];
-  amount: AddTransactionMutation["addTransaction"]["amount"];
-  details?: AddTransactionMutation["addTransaction"]["details"];
+  date: Transaction["date"];
+  amount: Transaction["amount"];
+  details?: Transaction["details"];
 }
 
 export function useAddTransaction({
@@ -46,4 +50,58 @@ export function useAddTransaction({
   if (error) throw error;
 
   return { loading, data, addTransaction };
+}
+
+interface UseUpdateTransactionProps {
+  id: Transaction["id"];
+  isIncome: boolean;
+  date: Transaction["date"];
+  amount: Transaction["amount"];
+  details?: Transaction["details"];
+}
+
+export function useUpdateTransaction({
+  id,
+  isIncome,
+  date,
+  details,
+  amount,
+}: UseUpdateTransactionProps) {
+  const variables = {
+    id,
+    date,
+    details,
+    amount: isIncome ? amount : amount * -1,
+  };
+
+  const [updateTransaction, { data, loading, error }] = useMutation(
+    UPDATE_TRANSACTION,
+    {
+      variables,
+      update(cache, { data: updateTransaction }) {
+        cache.modify({
+          fields: {
+            updateTransaction(existing = []) {
+              const newTransactionRef = cache.writeFragment({
+                data: updateTransaction,
+                fragment: gql`
+                  fragment UpdatedTransaction on Transaction {
+                    id
+                    date
+                    details
+                    amount
+                  }
+                `,
+              });
+              return [...existing, newTransactionRef];
+            },
+          },
+        });
+      },
+    }
+  );
+
+  if (error) throw error;
+
+  return { loading, data, updateTransaction };
 }

@@ -10,14 +10,16 @@ type Props = {
   buttonType?: ButtonType;
   disabled?: boolean;
   loading?: boolean;
+  submit?: boolean;
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const Button = ({
   buttonType = ButtonType.PRIMARY,
   disabled = false,
   loading = false,
+  submit = false,
   label,
   onClick,
 }: Props) => {
@@ -32,6 +34,7 @@ const Button = ({
       whileHover={{
         scale: 1.1,
       }}
+      type={submit ? "submit" : "button"}
     >
       {label}
     </motion.button>

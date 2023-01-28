@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../buttons/button";
+import Button, { ButtonType } from "../buttons/button";
 
 enum ButtonState {
   READY,
@@ -7,29 +7,49 @@ enum ButtonState {
 }
 
 type Props = {
+  className?: string;
   buttonLabel: string;
+  secondaryButtonLabel?: string;
   onSubmit: () => Promise<any> | any;
+  onSecondaryAction?: () => Promise<any> | any;
   children: JSX.Element;
 };
 
-const Form = ({ buttonLabel, onSubmit, children }: Props) => {
-  const [buttonState, setButtonState] = useState(ButtonState.READY);
+const Form = ({
+  className,
+  buttonLabel,
+  secondaryButtonLabel,
+  onSubmit,
+  onSecondaryAction,
+  children,
+}: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setButtonState(ButtonState.LOADING);
+    setIsLoading(true);
     await onSubmit();
-    setButtonState(ButtonState.READY);
+    setIsLoading(false);
   };
 
   return (
-    <form className="grid grid-col-1 gap-6" onSubmit={(e) => handleSubmit(e)}>
+    <form
+      className={`grid grid-col-1 gap-6 ${className}`}
+      onSubmit={(e) => handleSubmit(e)}
+    >
       {children}
-      <Button
-        label={buttonLabel}
-        onClick={() => {}}
-        loading={buttonState === ButtonState.LOADING}
-      />
+      {secondaryButtonLabel && onSecondaryAction ? (
+        <div className="grid grid-cols-2 gap-4">
+          <Button
+            label={secondaryButtonLabel}
+            onClick={onSecondaryAction}
+            buttonType={ButtonType.SECONDARY}
+          />
+          <Button label={buttonLabel} loading={isLoading} submit={true} />
+        </div>
+      ) : (
+        <Button label={buttonLabel} loading={isLoading} />
+      )}
     </form>
   );
 };

@@ -16,6 +16,7 @@ const documents = {
     "\n  query getStatementInRange($to: Date!, $from: Date!) {\n    getStatementInRange(to: $to, from: $from) {\n      transactions {\n        id\n        date\n        amount\n        details\n      }\n    }\n  }\n": types.GetStatementInRangeDocument,
     "\n  query getTransactionAnalyticsInRange($to: Date!, $from: Date!) {\n    getTransactionAnalyticsInRange(to: $to, from: $from) {\n      detail\n      count\n      min\n      average\n      max\n    }\n  }\n": types.GetTransactionAnalyticsInRangeDocument,
     "\n  mutation addTransaction($date: Date!, $details: String, $amount: Int!) {\n    addTransaction(date: $date, details: $details, amount: $amount) {\n      id\n      date\n      amount\n      details\n    }\n  }\n": types.AddTransactionDocument,
+    "\n  mutation updateTransaction(\n    $id: ID!\n    $details: String\n    $date: Date!\n    $amount: Int!\n  ) {\n    updateTransaction(\n      id: $id\n      details: $details\n      amount: $amount\n      date: $date\n    ) {\n      id\n      date\n      amount\n      details\n    }\n  }\n": types.UpdateTransactionDocument,
 };
 
 /**
@@ -30,6 +31,10 @@ export function graphql(source: "\n  query getTransactionAnalyticsInRange($to: D
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation addTransaction($date: Date!, $details: String, $amount: Int!) {\n    addTransaction(date: $date, details: $details, amount: $amount) {\n      id\n      date\n      amount\n      details\n    }\n  }\n"): (typeof documents)["\n  mutation addTransaction($date: Date!, $details: String, $amount: Int!) {\n    addTransaction(date: $date, details: $details, amount: $amount) {\n      id\n      date\n      amount\n      details\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation updateTransaction(\n    $id: ID!\n    $details: String\n    $date: Date!\n    $amount: Int!\n  ) {\n    updateTransaction(\n      id: $id\n      details: $details\n      amount: $amount\n      date: $date\n    ) {\n      id\n      date\n      amount\n      details\n    }\n  }\n"): (typeof documents)["\n  mutation updateTransaction(\n    $id: ID!\n    $details: String\n    $date: Date!\n    $amount: Int!\n  ) {\n    updateTransaction(\n      id: $id\n      details: $details\n      amount: $amount\n      date: $date\n    ) {\n      id\n      date\n      amount\n      details\n    }\n  }\n"];
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

@@ -27,6 +27,7 @@ const StatementPage = () => {
       <Statement
         to={ViewOptions[selectedView].to}
         from={ViewOptions[selectedView].from}
+        name={ViewOptions[selectedView].label}
       />
     </>
   );

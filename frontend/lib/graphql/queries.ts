@@ -35,3 +35,24 @@ export const ADD_TRANSACTION = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const UPDATE_TRANSACTION = graphql(/* GraphQL */ `
+  mutation updateTransaction(
+    $id: ID!
+    $details: String
+    $date: Date!
+    $amount: Int!
+  ) {
+    updateTransaction(
+      id: $id
+      details: $details
+      amount: $amount
+      date: $date
+    ) {
+      id
+      date
+      amount
+      details
+    }
+  }
+`);
