@@ -48,7 +48,7 @@ const Form = ({
           <Button label={buttonLabel} loading={isLoading} submit={true} />
         </div>
       ) : (
-        <Button label={buttonLabel} loading={isLoading} />
+        <Button label={buttonLabel} loading={isLoading} submit={true} />
       )}
     </form>
   );
