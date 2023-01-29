@@ -1,5 +1,5 @@
 import { GetTransactionAnalyticsInRangeQuery } from "../../lib/graphql/generated/graphql";
-import { formatAmount } from "../../lib/utils";
+import { formatCurrency } from "../../lib/utils";
 
 interface Props {
   transactionAnalytics: GetTransactionAnalyticsInRangeQuery["getTransactionAnalyticsInRange"][0];
@@ -17,15 +17,15 @@ const AnalyticsCard = ({ transactionAnalytics }: Props) => {
       <div className="space-y-2 text-sm">
         <div className="flex flex-row space-x-2">
           <p>Min</p>
-          <p>{formatAmount(min)}</p>
+          <p>{formatCurrency(min)}</p>
         </div>
         <div className="flex flex-row space-x-2">
           <p>Avg</p>
-          <p>{formatAmount(average)}</p>
+          <p>{formatCurrency(average)}</p>
         </div>
         <div className="flex flex-row space-x-2">
           <p>Max</p>
-          <p>{formatAmount(max)}</p>
+          <p>{formatCurrency(max)}</p>
         </div>
       </div>
     </div>

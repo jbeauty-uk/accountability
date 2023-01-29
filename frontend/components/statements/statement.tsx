@@ -1,6 +1,6 @@
 import { groupBy, reduce } from "lodash";
 import { useStatements } from "../../lib/statements/hooks";
-import { formatAmount } from "../../lib/utils";
+import { currencyFormatter, formatCurrency } from "../../lib/utils";
 import GroupedTransactions from "./groupedTransactions";
 
 interface Props {
@@ -22,7 +22,7 @@ const Statement = ({ to, from }: Props) => {
 
   return groupedTransactions.length ? (
     <>
-      <p className="text-lg">Total: {formatAmount(total)}</p>
+      <p className="text-lg">Total: {formatCurrency(total)}</p>
       <GroupedTransactions transactions={transactions} />
     </>
   ) : (
