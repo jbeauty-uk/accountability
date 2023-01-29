@@ -1,8 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion";
 import { groupBy, reduce } from "lodash";
 import { DateTime } from "luxon";
 import { GetStatementInRangeQuery } from "../../lib/graphql/generated/graphql";
-import { formatAmount } from "../../lib/utils";
+import { formatCurrency } from "../../lib/utils";
 import TransactionSnippet from "../transactions/transactionSnippet";
 
 interface Props {
@@ -22,7 +21,7 @@ const GroupedTransactions = ({ transactions }: Props) => {
             </p>
             <p className="text-sm">
               (
-              {formatAmount(
+              {formatCurrency(
                 reduce(
                   transactions,
                   (total, { amount }) => (total += amount),

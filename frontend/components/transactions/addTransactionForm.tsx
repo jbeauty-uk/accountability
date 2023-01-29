@@ -28,7 +28,7 @@ const AddTransactionForm = () => {
 
   const { addTransaction, loading } = useAddTransaction({
     isIncome,
-    amount: parseInt(amount),
+    amount: Number(amount),
     details,
     date,
   });

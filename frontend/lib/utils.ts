@@ -1,8 +1,12 @@
-export function formatAmount(amount: number): string {
-  const formatter = new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  });
+export const decimalFormatter = new Intl.NumberFormat("en-GB", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
 
-  return formatter.format(amount / 100);
-}
+export const currencyFormatter = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+
+export const formatCurrency = (amount: number) =>
+  currencyFormatter.format(amount / 100);

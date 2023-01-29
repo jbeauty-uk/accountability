@@ -1,9 +1,9 @@
-import { AnimatePresence, motion, useCycle } from "framer-motion";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useCycle } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Transaction } from "../../lib/graphql/generated/graphql";
 import { useUpdateTransaction } from "../../lib/transactions/hooks";
-import { formatAmount } from "../../lib/utils";
+import { readAmount } from "../../lib/transactions/utils";
+import { formatCurrency } from "../../lib/utils";
 import Form from "../forms/form";
 import Input, { InputType } from "../inputs/Input";
 import Textarea from "../inputs/Textarea";
@@ -22,7 +22,7 @@ const TransactionSnippet = (props: Props) => {
   const [isIncome, setIsIncome] = useState(props.amount > 0);
   const [date, setDate] = useState(props.date);
   const [details, setDetails] = useState(props.details);
-  const [amount, setAmount] = useState(Math.abs(props.amount));
+  const [amount, setAmount] = useState(readAmount(props.amount));
 
   const [edit, cycleEdit] = useCycle(false, true);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -32,7 +32,7 @@ const TransactionSnippet = (props: Props) => {
       isIncome !== props.amount > 0 ||
         date !== props.date ||
         details !== props.details ||
-        amount !== Math.abs(props.amount)
+        amount !== readAmount(props.amount)
     );
   }, [props, isIncome, date, details, amount]);
 
@@ -41,14 +41,14 @@ const TransactionSnippet = (props: Props) => {
     isIncome,
     date,
     details,
-    amount,
+    amount: Number((Number(amount) * 100).toFixed(0)),
   });
 
   const revertAndClose = () => {
     setIsIncome(props.amount > 0);
     setDate(props.date);
     setDetails(props.details);
-    setAmount(Math.abs(props.amount));
+    setAmount(readAmount(props.amount));
     cycleEdit();
   };
 
@@ -98,17 +98,15 @@ const TransactionSnippet = (props: Props) => {
             <Input
               label="Amount"
               type={InputType.NUMBER}
-              value={amount / 100}
-              onChange={(newAmount: string) =>
-                setAmount(parseInt(newAmount) * 100)
-              }
+              value={amount}
+              onChange={setAmount}
             />
           </>
         </Form>
       ) : (
         <>
           <p className={`w-1/4 text-right ${isIncome && "text-purple-600"}`}>
-            {formatAmount(amount)}
+            {formatCurrency(Number(amount) * 100)}
           </p>
           <p className={`w-3/4 text-left ${!details && "text-neutral-300"}`}>
             {details || "No details provided"}
