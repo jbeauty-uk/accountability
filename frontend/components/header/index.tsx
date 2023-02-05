@@ -1,9 +1,8 @@
 import { AnimatePresence, motion, useCycle } from "framer-motion";
-import { SITE_BRANDING } from "../../constants";
-import Navigation from "./nav";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
-import { readFile } from "fs";
+import { SITE_BRANDING } from "../../constants";
+import Navigation from "./nav";
 
 const Header = () => {
   const [isOpen, cycleOpen] = useCycle(false, true);
@@ -39,7 +38,8 @@ const Header = () => {
             {SITE_BRANDING}
           </Link>
         </motion.div>
-        <div
+        <button
+          role="button"
           className="h-10 flex flex-col justify-center items-center aspect-square border-neutral-600 border-2 rounded-md"
           onClick={() => cycleOpen()}
         >
@@ -60,7 +60,7 @@ const Header = () => {
               <path d="M0 7 L 20 7 L 10 16" />
             </svg>
           </motion.div>
-        </div>
+        </button>
       </div>
       <AnimatePresence>
         {isOpen && <Navigation top={height} cycleOpen={cycleOpen} />}

@@ -1,6 +1,6 @@
 import { groupBy, reduce } from "lodash";
 import { useStatements } from "../../lib/statements/hooks";
-import { currencyFormatter, formatCurrency } from "../../lib/utils";
+import { formatCurrency } from "../../lib/utils";
 import GroupedTransactions from "./groupedTransactions";
 
 interface Props {
