@@ -45,10 +45,7 @@ public class TransactionService {
         .flatMap(repository::save);
   }
 
-  public Mono<Transaction> updateTransaction(UUID id,
-                                             LocalDate date,
-                                             String details,
-                                             Long amount) {
+  public Mono<Transaction> updateTransaction(UUID id, LocalDate date, String details, Long amount) {
     return SecurityUtils.getPrincipal()
         .map(AbstractAuthenticationToken::getName)
         .flatMap(name -> repository.findByIdAndCreatedBy(id, name))

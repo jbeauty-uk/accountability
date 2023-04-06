@@ -1,11 +1,11 @@
 import { groupBy, reduce } from "lodash";
 import { DateTime } from "luxon";
-import { GetStatementInRangeQuery } from "../../lib/graphql/generated/graphql";
+import { GetTransactionsBetweenQuery } from "../../lib/graphql/generated/graphql";
 import { formatCurrency } from "../../lib/utils";
 import TransactionSnippet from "../transactions/transactionSnippet";
 
 interface Props {
-  transactions: GetStatementInRangeQuery["getStatementInRange"]["transactions"];
+  transactions: GetTransactionsBetweenQuery["getTransactionsBetween"];
 }
 
 const GroupedTransactions = ({ transactions }: Props) => {

@@ -1,8 +1,10 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { DateTime, Interval } from "luxon";
+import { DateOption } from "../../components/inputs/Select";
 import { Transaction } from "../graphql/generated/graphql";
 import {
   ADD_TRANSACTION,
-  GET_STATEMENT_IN_RANGE,
+  GET_TRANSACTIONS_BETWEEN,
   GET_TRANSACTION_RANGE,
   UPDATE_TRANSACTION,
 } from "../graphql/queries";
@@ -33,15 +35,15 @@ export function useAddTransaction({
       },
       refetchQueries: [
         {
-          query: GET_STATEMENT_IN_RANGE,
+          query: GET_TRANSACTIONS_BETWEEN,
           variables: { to: ViewOptions[0].to, from: ViewOptions[0].from },
         },
         {
-          query: GET_STATEMENT_IN_RANGE,
+          query: GET_TRANSACTIONS_BETWEEN,
           variables: { to: ViewOptions[1].to, from: ViewOptions[1].from },
         },
         {
-          query: GET_STATEMENT_IN_RANGE,
+          query: GET_TRANSACTIONS_BETWEEN,
           variables: { to: ViewOptions[2].to, from: ViewOptions[2].from },
         },
       ],
@@ -105,6 +107,38 @@ export function useUpdateTransaction({
   if (error) throw error;
 
   return { loading, data, updateTransaction };
+}
+
+export function useAvailableMonths() {
+  const { loading, data } = useTransactionRange();
+  const format = "LLLL yyyy";
+
+  if (!data || !data.getTransactionRange) {
+    return { loading, availableMonths: [] };
+  }
+
+  const {
+    getTransactionRange: { from, to },
+  } = data;
+
+  const availableMonths: DateOption[] = Interval.fromDateTimes(
+    DateTime.fromISO(from).startOf("month"),
+    DateTime.fromISO(to).startOf("month")
+  )
+    .splitBy({ month: 1 })
+    .map((i) => {
+      const label = i.start.toFormat(format);
+      const option = {
+        label,
+        value: label.replace(" ", "-").toLocaleLowerCase(),
+        from: i.start.toISODate(),
+        to: i.start.plus({ month: 1 }).toISODate(),
+      };
+      return option;
+    })
+    .reverse();
+
+  return { loading, availableMonths };
 }
 
 export function useTransactionRange() {
