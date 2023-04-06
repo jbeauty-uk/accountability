@@ -16,6 +16,10 @@ const StatementPage = () => {
 
   const { loading, availableMonths } = useAvailableMonths();
 
+  if (!loading && !availableMonths.length) {
+    return <p>No data found</p>;
+  }
+
   const updateSelectedView = ({
     label,
     from,

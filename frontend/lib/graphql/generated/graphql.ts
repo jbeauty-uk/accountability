@@ -51,10 +51,10 @@ export type Query = {
   getStatement: Statement;
   getStatementInRange: Statement;
   /**  Analytics */
-  getTransactionAnalyticsInRange: Array<TransactionAnalytics>;
+  getTransactionAnalyticsInRange: Array<Maybe<TransactionAnalytics>>;
   /**  Transaction */
   getTransactionById?: Maybe<Transaction>;
-  getTransactionRange: TransactionRange;
+  getTransactionRange?: Maybe<TransactionRange>;
 };
 
 
@@ -83,7 +83,7 @@ export type QueryGetTransactionByIdArgs = {
 
 export type Statement = {
   __typename?: 'Statement';
-  transactions: Array<Transaction>;
+  transactions: Array<Maybe<Transaction>>;
 };
 
 export type Transaction = {
@@ -117,7 +117,7 @@ export type GetStatementInRangeQueryVariables = Exact<{
 }>;
 
 
-export type GetStatementInRangeQuery = { __typename?: 'Query', getStatementInRange: { __typename?: 'Statement', transactions: Array<{ __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null }> } };
+export type GetStatementInRangeQuery = { __typename?: 'Query', getStatementInRange: { __typename?: 'Statement', transactions: Array<{ __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null } | null> } };
 
 export type GetTransactionAnalyticsInRangeQueryVariables = Exact<{
   to: Scalars['Date'];
@@ -125,12 +125,12 @@ export type GetTransactionAnalyticsInRangeQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionAnalyticsInRangeQuery = { __typename?: 'Query', getTransactionAnalyticsInRange: Array<{ __typename?: 'TransactionAnalytics', detail: string, count: number, min: number, average: number, max: number }> };
+export type GetTransactionAnalyticsInRangeQuery = { __typename?: 'Query', getTransactionAnalyticsInRange: Array<{ __typename?: 'TransactionAnalytics', detail: string, count: number, min: number, average: number, max: number } | null> };
 
 export type GetTransactionRangeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTransactionRangeQuery = { __typename?: 'Query', getTransactionRange: { __typename?: 'TransactionRange', from: any, to: any } };
+export type GetTransactionRangeQuery = { __typename?: 'Query', getTransactionRange?: { __typename?: 'TransactionRange', from: any, to: any } | null };
 
 export type AddTransactionMutationVariables = Exact<{
   date: Scalars['Date'];

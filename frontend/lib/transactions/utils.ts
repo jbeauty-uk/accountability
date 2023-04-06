@@ -6,7 +6,7 @@ export function useAvailableMonths() {
   const { loading, data } = useTransactionRange();
   const format = "LLLL yyyy";
 
-  if (!data) {
+  if (!data || !data.getTransactionRange) {
     return { loading, availableMonths: [] };
   }
 
