@@ -11,18 +11,6 @@ export const GET_TRANSACTIONS_BETWEEN = graphql(/* GraphQL */ `
   }
 `);
 
-export const GET_TRANSACTION_ANALYTICS_IN_RANGE = graphql(/* GraphQL */ `
-  query getTransactionAnalyticsInRange($to: Date!, $from: Date!) {
-    getTransactionAnalyticsInRange(to: $to, from: $from) {
-      detail
-      count
-      min
-      average
-      max
-    }
-  }
-`);
-
 export const GET_TRANSACTION_RANGE = graphql(/* GraphQL */ `
   query getTransactionRange {
     getTransactionRange {

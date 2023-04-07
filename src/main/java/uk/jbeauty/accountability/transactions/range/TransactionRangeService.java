@@ -24,8 +24,8 @@ public class TransactionRangeService {
   public Mono<TransactionRange> getTransactionRange() {
     var query = databaseClient.sql("""
         SELECT
-          min(t.date),
-          max(t.date)
+          MIN(t.date),
+          MAX(t.date)
         FROM transactions t
         WHERE t.created_by = :createdBy;
         """);
