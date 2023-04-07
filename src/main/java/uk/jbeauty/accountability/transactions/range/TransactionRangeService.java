@@ -1,6 +1,8 @@
 package uk.jbeauty.accountability.transactions.range;
 
 import io.r2dbc.spi.Row;
+import java.util.Objects;
+import org.slf4j.LoggerFactory;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.r2dbc.core.RowsFetchSpec;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -22,8 +24,8 @@ public class TransactionRangeService {
   public Mono<TransactionRange> getTransactionRange() {
     var query = databaseClient.sql("""
         SELECT
-          min(t.date),
-          max(t.date)
+          MIN(t.date),
+          MAX(t.date)
         FROM transactions t
         WHERE t.created_by = :createdBy;
         """);

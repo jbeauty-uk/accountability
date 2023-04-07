@@ -1,13 +1,13 @@
 type Transaction {
-    id: ID!,
-    createdAt: String!,
-    createdBy: String!,
-    date: Date!,
-    details: String,
-    amount: Int!
+  id: ID!,
+  createdAt: String!,
+  createdBy: String!,
+  date: Date!,
+  details: String,
+  amount: Int!
 }
 
 type TransactionRange {
-    from: Date!,
-    to: Date!,
+  from: Date,
+  to: Date,
 }
