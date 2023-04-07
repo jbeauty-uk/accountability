@@ -1,3 +1,0 @@
-type Statement {
-    transactions: [Transaction]
-}

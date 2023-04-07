@@ -2,14 +2,15 @@ scalar Long
 scalar Date
 
 type Query {
-    # Transaction
-    getTransactionById(id: ID): Transaction
-    getTransactionRange: TransactionRange
-
-    # Statements
-    getStatement(year: Int!, month: Int, day: Int): Statement!
-    getStatementInRange(to: Date!, from: Date!): Statement!
-
     # Analytics
     getTransactionAnalyticsInRange(to: Date!, from: Date!): [TransactionAnalytics]!
+
+    # Taxes
+    getTaxPeriods: [TaxPeriod!]
+
+    # Transaction
+    getTransactionRange: TransactionRange
+    getTransactionById(id: ID): Transaction
+    getTransactions(year: Int!, month: Int, day: Int): [Transaction!]
+    getTransactionsBetween(to: Date!, from: Date!): [Transaction!]
 }

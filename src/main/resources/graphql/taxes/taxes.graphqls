@@ -1,0 +1,7 @@
+type TaxPeriod {
+    id: ID!,
+    name: String!,
+    region: String!,
+    periodStart: Date!,
+    periodEnd: Date!,
+}

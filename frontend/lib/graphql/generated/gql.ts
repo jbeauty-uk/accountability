@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "\n  query getStatementInRange($to: Date!, $from: Date!) {\n    getStatementInRange(to: $to, from: $from) {\n      transactions {\n        id\n        date\n        amount\n        details\n      }\n    }\n  }\n": types.GetStatementInRangeDocument,
+    "\n  query getTransactionsBetween($to: Date!, $from: Date!) {\n    getTransactionsBetween(to: $to, from: $from) {\n      id\n      date\n      amount\n      details\n    }\n  }\n": types.GetTransactionsBetweenDocument,
     "\n  query getTransactionAnalyticsInRange($to: Date!, $from: Date!) {\n    getTransactionAnalyticsInRange(to: $to, from: $from) {\n      detail\n      count\n      min\n      average\n      max\n    }\n  }\n": types.GetTransactionAnalyticsInRangeDocument,
     "\n  query getTransactionRange {\n    getTransactionRange {\n      from\n      to\n    }\n  }\n": types.GetTransactionRangeDocument,
     "\n  mutation addTransaction($date: Date!, $details: String, $amount: Int!) {\n    addTransaction(date: $date, details: $details, amount: $amount) {\n      id\n      date\n      amount\n      details\n    }\n  }\n": types.AddTransactionDocument,
@@ -23,7 +23,7 @@ const documents = {
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query getStatementInRange($to: Date!, $from: Date!) {\n    getStatementInRange(to: $to, from: $from) {\n      transactions {\n        id\n        date\n        amount\n        details\n      }\n    }\n  }\n"): (typeof documents)["\n  query getStatementInRange($to: Date!, $from: Date!) {\n    getStatementInRange(to: $to, from: $from) {\n      transactions {\n        id\n        date\n        amount\n        details\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query getTransactionsBetween($to: Date!, $from: Date!) {\n    getTransactionsBetween(to: $to, from: $from) {\n      id\n      date\n      amount\n      details\n    }\n  }\n"): (typeof documents)["\n  query getTransactionsBetween($to: Date!, $from: Date!) {\n    getTransactionsBetween(to: $to, from: $from) {\n      id\n      date\n      amount\n      details\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

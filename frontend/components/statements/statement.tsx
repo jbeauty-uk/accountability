@@ -1,5 +1,5 @@
 import { groupBy, reduce } from "lodash";
-import { useStatements } from "../../lib/statements/hooks";
+import { useTransactions } from "../../lib/statements/hooks";
 import { formatCurrency } from "../../lib/utils";
 import GroupedTransactions from "./groupedTransactions";
 
@@ -9,13 +9,13 @@ interface Props {
 }
 
 const Statement = ({ to, from }: Props) => {
-  const { data } = useStatements(to, from);
+  const { loading, transactions } = useTransactions(to, from);
 
-  if (!data) return <p>Loading</p>;
+  if (loading) return <p>Loading</p>;
 
-  const {
-    getStatementInRange: { transactions },
-  } = data;
+  if (!transactions) {
+    return <p>No transactions found</p>;
+  }
 
   const total = reduce(transactions, (sum, { amount }) => (sum += amount), 0);
   const groupedTransactions = Object.entries(groupBy(transactions, "date"));
