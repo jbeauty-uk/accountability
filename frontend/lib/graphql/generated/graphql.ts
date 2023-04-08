@@ -47,8 +47,6 @@ export type MutationUpdateTransactionArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  /**  Taxes */
-  getTaxPeriods?: Maybe<Array<TaxPeriod>>;
   getTransactionById?: Maybe<Transaction>;
   /**  Transaction */
   getTransactionRange?: Maybe<TransactionRange>;
@@ -72,15 +70,6 @@ export type QueryGetTransactionsArgs = {
 export type QueryGetTransactionsBetweenArgs = {
   from: Scalars['Date'];
   to: Scalars['Date'];
-};
-
-export type TaxPeriod = {
-  __typename?: 'TaxPeriod';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  periodEnd: Scalars['Date'];
-  periodStart: Scalars['Date'];
-  region: Scalars['String'];
 };
 
 export type Transaction = {
