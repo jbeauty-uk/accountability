@@ -1,16 +1,14 @@
-import { AnimatePresence } from "framer-motion";
 import { signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Footer from "./footer";
 import Header from "./header";
-import LoadingBar from "./loading/loadingBar";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
 const Layout = (props: LayoutProps) => {
-  const { status, data: session } = useSession({ required: true });
+  const { data: session } = useSession({ required: true });
 
   useEffect(() => {
     if (session?.error === "RefreshAccessTokenError") {
@@ -22,10 +20,9 @@ const Layout = (props: LayoutProps) => {
     <div className="flex flex-col">
       <div className="flex flex-col min-h-screen">
         <Header />
-        <AnimatePresence mode="wait">
-          {status === "loading" && <LoadingBar />}
-          {status === "authenticated" && <PageContent {...props} />}
-        </AnimatePresence>
+        <Suspense fallback={<p>Loading...</p>}>
+          <PageContent {...props} />
+        </Suspense>
       </div>
       <Footer />
     </div>

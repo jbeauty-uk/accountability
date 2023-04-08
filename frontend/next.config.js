@@ -9,6 +9,15 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/transactions",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 const moduleExports = {

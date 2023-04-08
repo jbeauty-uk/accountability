@@ -1,19 +1,20 @@
 package uk.jbeauty.accountability.transactions;
 
+import java.time.LocalDate;
+import java.util.UUID;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.Arguments;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
 @Controller
-class TransactionMutationController extends TransactionController {
+class TransactionMutationController {
+
+  private final TransactionService transactionService;
 
   TransactionMutationController(TransactionService transactionService) {
-    super(transactionService);
+    this.transactionService = transactionService;
   }
 
   @MutationMapping

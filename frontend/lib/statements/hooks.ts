@@ -1,12 +1,14 @@
 import { useQuery } from "@apollo/client";
-import { GET_STATEMENT_IN_RANGE } from "../graphql/queries";
+import { GET_TRANSACTIONS_BETWEEN } from "../graphql/queries";
 
-export function useStatements(to: string, from: string) {
-  const { loading, error, data, refetch } = useQuery(GET_STATEMENT_IN_RANGE, {
+export function useTransactions(to: string, from: string) {
+  const { loading, data, refetch } = useQuery(GET_TRANSACTIONS_BETWEEN, {
     variables: { to, from },
   });
 
-  if (error) throw error;
+  if (!data || !data.getTransactionsBetween) {
+    return { loading, transactions: [] };
+  }
 
-  return { loading, data, refetch };
+  return { loading, transactions: data.getTransactionsBetween, refetch };
 }

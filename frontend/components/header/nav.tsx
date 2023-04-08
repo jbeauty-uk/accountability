@@ -24,8 +24,8 @@ const routes: Route[] = [
     href: "/transactions",
   },
   {
-    displayText: "Statements",
-    href: "/statements",
+    displayText: "Reports",
+    href: "/reports",
   },
 ];
 
