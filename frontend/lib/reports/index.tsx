@@ -109,7 +109,7 @@ function SummaryPage({
                 flexDirection: "row",
                 width: "100%",
                 justifyContent: "space-between",
-                paddingTop: "0.2cm",
+                paddingVertical: "0.2cm",
               }}
             >
               <Text>{title}</Text>
@@ -123,10 +123,11 @@ function SummaryPage({
             flexDirection: "row",
             width: "100%",
             justifyContent: "space-between",
-            paddingTop: "1cm",
+            paddingVertical: "0.2cm",
+            borderTop: "1px solid black",
           }}
         >
-          <Text></Text>
+          <Text>Total</Text>
           <Text>
             {formatCurrency(
               groupedTransactions
@@ -175,7 +176,7 @@ function MonthSummary({ transactions }: { transactions: Array<Transaction> }) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          paddingTop: "0.2cm",
+          paddingVertical: "0.2cm",
         }}
       >
         <Text>Total Expenses</Text>
@@ -188,6 +189,7 @@ function MonthSummary({ transactions }: { transactions: Array<Transaction> }) {
           flexDirection: "row",
           justifyContent: "space-between",
           paddingTop: "0.2cm",
+          borderTop: "1px solid black",
         }}
       >
         <Text>Total</Text>
