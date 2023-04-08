@@ -1,16 +1,16 @@
 import { Text, View } from "@react-pdf/renderer";
 import { groupBy } from "lodash";
 import { DateTime } from "luxon";
+import React from "react";
 import PdfDocument from "../../components/reports/document/document";
 import PdfPage from "../../components/reports/document/page";
 import PageFooter from "../../components/reports/document/pageFooter";
 import PageHeader from "../../components/reports/document/pageHeader";
 import { FiscalYear } from "../../components/reports/fiscalYear";
 import apolloClient from "../apolloClient";
-import { Transaction } from "../graphql/generated/graphql";
+import { GetTransactionsBetweenQuery } from "../graphql/generated/graphql";
 import { GET_TRANSACTIONS_BETWEEN } from "../graphql/queries";
 import { formatCurrency } from "../utils";
-import React from "react";
 
 export async function generateReport(fiscalYear: FiscalYear) {
   const from = fiscalYear.start.startOf("day");
@@ -22,8 +22,8 @@ export async function generateReport(fiscalYear: FiscalYear) {
   const { error, data } = await apolloClient.query({
     query: GET_TRANSACTIONS_BETWEEN,
     variables: {
-      from: from.toISODate(),
       to: to.toISODate(),
+      from: from.toISODate(),
     },
   });
 
@@ -34,7 +34,10 @@ export async function generateReport(fiscalYear: FiscalYear) {
   }
 
   const groupedTransactions = Object.entries(
-    groupBy(data.getTransactionsBetween, getMonth)
+    groupBy(
+      data.getTransactionsBetween,
+      ({ date }) => `${DateTime.fromISO(date).toFormat("LLLL yyyy")}`
+    )
   );
 
   const pages = groupedTransactions.map(([title, transactions]) =>
@@ -76,16 +79,13 @@ export async function generateReport(fiscalYear: FiscalYear) {
   );
 }
 
-function getMonth(transaction: Transaction) {
-  var date = DateTime.fromISO(transaction.date);
-  return `${date.toFormat("LLLL yyyy")}`;
+interface SummaryPageProps {
+  groupedTransactions: Array<
+    [string, GetTransactionsBetweenQuery["getTransactionsBetween"]]
+  >;
 }
 
-function SummaryPage({
-  groupedTransactions,
-}: {
-  groupedTransactions: [string, Array<Transaction>];
-}) {
+const SummaryPage = ({ groupedTransactions }: SummaryPageProps) => {
   return (
     <PdfPage>
       <PageHeader title="Summary" />
@@ -140,9 +140,13 @@ function SummaryPage({
       </View>
     </PdfPage>
   );
+};
+
+interface MonthSummaryProps {
+  transactions: GetTransactionsBetweenQuery["getTransactionsBetween"];
 }
 
-function MonthSummary({ transactions }: { transactions: Array<Transaction> }) {
+const MonthSummary = ({ transactions }: MonthSummaryProps) => {
   const income = transactions
     .filter(({ amount }) => amount > 0)
     .map(({ amount }) => amount)
@@ -197,9 +201,12 @@ function MonthSummary({ transactions }: { transactions: Array<Transaction> }) {
       </View>
     </View>
   );
-}
+};
 
-function createPageForMonth(title: string, transactions: Array<Transaction>) {
+function createPageForMonth(
+  title: string,
+  transactions: GetTransactionsBetweenQuery["getTransactionsBetween"]
+) {
   return (
     <PdfPage>
       <PageHeader title={title} />

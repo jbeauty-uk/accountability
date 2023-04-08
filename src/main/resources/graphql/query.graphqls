@@ -5,6 +5,6 @@ type Query {
   # Transaction
   getTransactionRange: TransactionRange
   getTransactionById(id: ID): Transaction
-  getTransactions(year: Int!, month: Int, day: Int): [Transaction!]
-  getTransactionsBetween(to: Date!, from: Date!): [Transaction!]
+  getTransactions(year: Int!, month: Int, day: Int): [Transaction!]!
+  getTransactionsBetween(to: Date!, from: Date!): [Transaction!]!
 }

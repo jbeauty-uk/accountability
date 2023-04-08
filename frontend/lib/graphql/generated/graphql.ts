@@ -50,8 +50,8 @@ export type Query = {
   getTransactionById?: Maybe<Transaction>;
   /**  Transaction */
   getTransactionRange?: Maybe<TransactionRange>;
-  getTransactions?: Maybe<Array<Transaction>>;
-  getTransactionsBetween?: Maybe<Array<Transaction>>;
+  getTransactions: Array<Transaction>;
+  getTransactionsBetween: Array<Transaction>;
 };
 
 
@@ -94,7 +94,7 @@ export type GetTransactionsBetweenQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionsBetweenQuery = { __typename?: 'Query', getTransactionsBetween?: Array<{ __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null }> | null };
+export type GetTransactionsBetweenQuery = { __typename?: 'Query', getTransactionsBetween: Array<{ __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null }> };
 
 export type GetTransactionRangeQueryVariables = Exact<{ [key: string]: never; }>;
 
