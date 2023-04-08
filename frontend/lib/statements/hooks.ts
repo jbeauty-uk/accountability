@@ -10,7 +10,5 @@ export function useTransactions(to: string, from: string) {
     return { loading, transactions: [] };
   }
 
-  const transactions = data.getTransactionsBetween;
-
-  return { loading, transactions, refetch };
+  return { loading, transactions: data.getTransactionsBetween, refetch };
 }

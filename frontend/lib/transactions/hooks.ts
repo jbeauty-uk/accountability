@@ -132,7 +132,7 @@ export function useAvailableMonths() {
         label,
         value: label.replace(" ", "-").toLocaleLowerCase(),
         from: i.start.toISODate(),
-        to: i.start.plus({ month: 1 }).toISODate(),
+        to: i.start.plus({ month: 1 }).minus({ days: 1 }).toISODate(),
       };
       return option;
     })

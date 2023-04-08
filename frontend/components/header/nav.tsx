@@ -23,6 +23,10 @@ const routes: Route[] = [
     displayText: "Transactions",
     href: "/transactions",
   },
+  {
+    displayText: "Reports",
+    href: "/reports",
+  },
 ];
 
 const routeVariants: Variants = {

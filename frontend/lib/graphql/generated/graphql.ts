@@ -47,13 +47,11 @@ export type MutationUpdateTransactionArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  /**  Taxes */
-  getTaxPeriods?: Maybe<Array<TaxPeriod>>;
   getTransactionById?: Maybe<Transaction>;
   /**  Transaction */
   getTransactionRange?: Maybe<TransactionRange>;
-  getTransactions?: Maybe<Array<Transaction>>;
-  getTransactionsBetween?: Maybe<Array<Transaction>>;
+  getTransactions: Array<Transaction>;
+  getTransactionsBetween: Array<Transaction>;
 };
 
 
@@ -72,15 +70,6 @@ export type QueryGetTransactionsArgs = {
 export type QueryGetTransactionsBetweenArgs = {
   from: Scalars['Date'];
   to: Scalars['Date'];
-};
-
-export type TaxPeriod = {
-  __typename?: 'TaxPeriod';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  periodEnd: Scalars['Date'];
-  periodStart: Scalars['Date'];
-  region: Scalars['String'];
 };
 
 export type Transaction = {
@@ -105,7 +94,7 @@ export type GetTransactionsBetweenQueryVariables = Exact<{
 }>;
 
 
-export type GetTransactionsBetweenQuery = { __typename?: 'Query', getTransactionsBetween?: Array<{ __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null }> | null };
+export type GetTransactionsBetweenQuery = { __typename?: 'Query', getTransactionsBetween: Array<{ __typename?: 'Transaction', id: string, date: any, amount: number, details?: string | null }> };
 
 export type GetTransactionRangeQueryVariables = Exact<{ [key: string]: never; }>;
 
