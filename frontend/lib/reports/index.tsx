@@ -97,7 +97,6 @@ const SummaryPage = ({ groupedTransactions }: SummaryPageProps) => {
       >
         {groupedTransactions.map(([title, transactions]) => {
           const total = transactions
-            .filter(({ amount }) => amount > 0)
             .map(({ amount }) => amount)
             .reduce((sum, amount) => sum + amount, 0);
 
