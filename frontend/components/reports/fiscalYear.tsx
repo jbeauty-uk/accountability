@@ -1,9 +1,8 @@
-import ReactPDF, { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import ReactPDF from "@react-pdf/renderer";
 import { DateTime } from "luxon";
-import { AnchorHTMLAttributes, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { generateReport } from "../../lib/reports";
 import Button from "../buttons/button";
-import { Stream } from "stream";
 
 export interface FiscalYear {
   name: string;
@@ -16,6 +15,11 @@ const YEARS: Array<FiscalYear> = [
     name: "2022-23",
     start: DateTime.fromObject({ day: 6, month: 4, year: 2022 }),
     documentName: "transactions-2022-23",
+  },
+  {
+    name: "2023-24",
+    start: DateTime.fromObject({ day: 6, month: 4, year: 2023 }),
+    documentName: "transactions-2023-24",
   },
 ];
 
