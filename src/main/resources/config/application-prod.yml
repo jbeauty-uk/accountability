@@ -11,3 +11,6 @@ spring:
     url: jdbc:postgresql://${POSTGRES_HOST}
     user: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
+
+sentry:
+  environment: production
