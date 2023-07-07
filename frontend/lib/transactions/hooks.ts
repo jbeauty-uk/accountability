@@ -121,20 +121,22 @@ export function useAvailableMonths() {
     getTransactionRange: { from, to },
   } = data;
 
-  const availableMonths: DateOption[] = Interval.fromDateTimes(
+  const availableMonths: Array<DateOption> = Interval.fromDateTimes(
     DateTime.fromISO(from).startOf("month"),
     DateTime.fromISO(to).startOf("month")
   )
     .splitBy({ month: 1 })
     .map((i) => {
+      if (i.start === null) {
+        throw new Error(`interval start is null`);
+      }
+
       const label = i.start.toFormat(format);
-      const option = {
-        label,
-        value: label.replace(" ", "-").toLocaleLowerCase(),
-        from: i.start.toISODate(),
-        to: i.start.plus({ month: 1 }).minus({ days: 1 }).toISODate(),
-      };
-      return option;
+      const value = label.replace(" ", "-").toLocaleLowerCase();
+      const from = i.start.toISODate()!;
+      const to = i.start.plus({ month: 1 }).minus({ days: 1 }).toISODate()!;
+
+      return { label, value, from, to };
     })
     .reverse();
 

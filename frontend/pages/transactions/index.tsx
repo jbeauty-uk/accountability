@@ -60,7 +60,7 @@ const TransactionPage = () => {
               onChange={updateSelectedView}
             />
           </div>
-          <Statement to={currentRange.to} from={currentRange.from} />
+          <Statement to={currentRange.to!} from={currentRange.from!} />
         </>
       )}
     </>

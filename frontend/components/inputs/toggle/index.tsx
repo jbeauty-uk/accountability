@@ -23,7 +23,7 @@ const Toggle = ({
 }: Props) => {
   const [isOn, setIsOn] = useState(defaultState);
 
-  useEffect(() => onChange(isOn), [isOn]);
+  useEffect(() => onChange(isOn), [onChange, isOn]);
 
   return (
     <div

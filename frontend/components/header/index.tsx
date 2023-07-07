@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useCycle } from "framer-motion";
 import Link from "next/link";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SITE_BRANDING } from "../../constants";
 import Navigation from "./nav";
 
@@ -9,7 +9,7 @@ const Header = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!ref.current) return;
     setHeight(ref.current.clientHeight);
   }, [ref]);
