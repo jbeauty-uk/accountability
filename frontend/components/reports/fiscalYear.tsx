@@ -21,6 +21,11 @@ const YEARS: Array<FiscalYear> = [
     start: DateTime.fromObject({ day: 6, month: 4, year: 2023 }),
     documentName: "transactions-2023-24",
   },
+  {
+    name: "2024-25",
+    start: DateTime.fromObject({ day: 6, month: 4, year: 2024 }),
+    documentName: "transactions-2024-25",
+  },
 ];
 
 export function FiscalYears() {
